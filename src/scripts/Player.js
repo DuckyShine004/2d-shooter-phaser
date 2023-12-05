@@ -8,20 +8,20 @@ class Player extends Phaser.GameObjects.Ellipse {
     this.body.setCollideWorldBounds(true);
   }
 
-  update(cursors) {
+  update(keys) {
     const speed = 300;
 
     this.body.setVelocityX(0);
     this.body.setVelocityY(0);
 
-    if (cursors.left.isDown) {
+    if (keys.left.isDown) {
       this.body.setVelocityX(-speed);
-    } else if (cursors.right.isDown) {
+    } else if (keys.right.isDown) {
       this.body.setVelocityX(speed);
     }
-    if (cursors.up.isDown) {
+    if (keys.up.isDown) {
       this.body.setVelocityY(-speed);
-    } else if (cursors.down.isDown) {
+    } else if (keys.down.isDown) {
       this.body.setVelocityY(speed);
     }
   }

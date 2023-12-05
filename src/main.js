@@ -8,12 +8,18 @@ class MainScene extends Phaser.Scene {
   }
 
   create() {
-    this.cursors = this.input.keyboard.createCursorKeys();
+    this.keys = this.input.keyboard.addKeys({
+      up: 'W',
+      down: 'S',
+      left: 'A',
+      right: 'D'
+    });
+
     this.player = new Player(this, 400, 400, 30, 0xff0000);
   }
 
   update() {
-    this.player.update(this.cursors);
+    this.player.update(this.keys);
   }
 }
 
