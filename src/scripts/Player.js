@@ -47,8 +47,7 @@ class Player extends Phaser.GameObjects.Ellipse {
    * @return {void} Nothing is returned.
    */
   update(keys, cursors, mouse) {
-    this.body.setVelocityX(0);
-    this.body.setVelocityY(0);
+    this.body.setVelocity(0, 0);
 
     if (keys.left.isDown || cursors.left.isDown) {
       this.body.setVelocityX(-this.speed);

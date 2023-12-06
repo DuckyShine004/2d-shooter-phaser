@@ -5,6 +5,10 @@ class MainScene extends Phaser.Scene {
 
   preload() {
     Utility.getBackground(this, window);
+
+    this.load.setBaseURL('https://labs.phaser.io');
+
+    this.load.image('red', 'assets/particles/red.png');
   }
 
   create() {
