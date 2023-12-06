@@ -5,5 +5,11 @@ class Utility {
 
     return Math.atan2(dy, dx);
   }
+
+  static getNormalization(x, y) {
+    const z = Math.pow(x, 2) + Math.pow(y, 2);
+
+    return 1 / Math.sqrt(z);
+  }
 }
 

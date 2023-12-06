@@ -4,6 +4,7 @@ class Player extends Phaser.GameObjects.Ellipse {
 
     this.speed = 300;
     this.radius = radius;
+    this.mousePressed = false;
 
     scene.add.existing(this);
     scene.physics.add.existing(this);
@@ -12,12 +13,7 @@ class Player extends Phaser.GameObjects.Ellipse {
     this.body.setCollideWorldBounds(true);
 
     this.arm = scene.add.circle(this.x, this.y, 10, 0xffffff);
-  }
-
-  handleClick(pointer) {
-    if (pointer.isDown) {
-      console.log(pointer.worldX, this.x, pointer.worldY, this.y);
-    }
+    this.bullets = [];
   }
 
   update(keys, cursors, mouse) {
@@ -35,7 +31,17 @@ class Player extends Phaser.GameObjects.Ellipse {
       this.body.setVelocityY(this.speed);
     }
 
+    if (mouse.leftButtonDown() && !this.mousePressed) {
+      this.bullets.push(new Bullet(this.scene, this.arm.x, this.arm.y, mouse.x, mouse.y, 5, 0xffffff));
+      this.mousePressed = true;
+    }
+
+    if (mouse.leftButtonReleased() && this.mousePressed) {
+      this.mousePressed = false;
+    }
+
     this.updateArm(mouse);
+    this.updateBullets();
   }
 
   updateArm(mouse) {
@@ -45,5 +51,11 @@ class Player extends Phaser.GameObjects.Ellipse {
 
     this.arm.x = this.x + (dr * Math.cos(theta));
     this.arm.y = this.y + (dr * Math.sin(theta));
+  }
+
+  updateBullets() {
+    for (const bullet of this.bullets) {
+      bullet.update();
+    }
   }
 }
