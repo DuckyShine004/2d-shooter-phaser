@@ -16,6 +16,10 @@ class Player extends Phaser.GameObjects.Ellipse {
     this.bullets = [];
   }
 
+  removeBullet(bullet) {
+    this.bullets = this.bullets.filter(b => b !== bullet);
+  }
+
   update(keys, cursors, mouse) {
     this.body.setVelocityX(0);
     this.body.setVelocityY(0);
@@ -31,17 +35,8 @@ class Player extends Phaser.GameObjects.Ellipse {
       this.body.setVelocityY(this.speed);
     }
 
-    if (mouse.leftButtonDown() && !this.mousePressed) {
-      this.bullets.push(new Bullet(this.scene, this.arm.x, this.arm.y, mouse.x, mouse.y, 5, 0xffffff));
-      this.mousePressed = true;
-    }
-
-    if (mouse.leftButtonReleased() && this.mousePressed) {
-      this.mousePressed = false;
-    }
-
     this.updateArm(mouse);
-    this.updateBullets();
+    this.updateBullets(mouse);
   }
 
   updateArm(mouse) {
@@ -53,8 +48,17 @@ class Player extends Phaser.GameObjects.Ellipse {
     this.arm.y = this.y + (dr * Math.sin(theta));
   }
 
-  updateBullets() {
-    for (const bullet of this.bullets) {
+  updateBullets(mouse) {
+    if (mouse.leftButtonDown() && !this.mousePressed) {
+      this.bullets.push(new Bullet(this.scene, this.arm.x, this.arm.y, mouse.x, mouse.y, this.removeBullet.bind(this), 5, 0xffffff));
+      this.mousePressed = true;
+    }
+
+    if (mouse.leftButtonReleased() && this.mousePressed) {
+      this.mousePressed = false;
+    }
+
+    for (const bullet of [...this.bullets]) {
       bullet.update();
     }
   }
