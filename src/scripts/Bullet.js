@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 class Bullet extends Phaser.GameObjects.Ellipse {
   /**
    * Initialization of the bullet object.
@@ -10,6 +11,7 @@ class Bullet extends Phaser.GameObjects.Ellipse {
    * @param {Function} removeBullet - Callback remove bullet object function.
    * @param {number} radius - The radius of the bullet object.
    * @param {number} color - The color of the bullet.
+   * @return {void} Nothing is returned.
    */
   constructor(scene, x, y, mouseX, mouseY, removeBullet, radius, color) {
     super(scene, x, y, radius, radius, color);
