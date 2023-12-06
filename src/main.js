@@ -12,16 +12,17 @@ class MainScene extends Phaser.Scene {
       up: 'W',
       down: 'S',
       left: 'A',
-      right: 'D'
+      right: 'D',
     });
 
     this.cursors = this.input.keyboard.createCursorKeys();
+    this.mouse = this.input.activePointer;
 
     this.player = new Player(this, 400, 400, 30, 0xff0000);
   }
 
   update() {
-    this.player.update(this.keys, this.cursors);
+    this.player.update(this.keys, this.cursors, this.mouse);
   }
 }
 
@@ -33,10 +34,10 @@ const config = {
     default: 'arcade',
     arcade: {
       gravity: {y: 0},
-      debug: false
-    }
+      debug: false,
+    },
   },
-  scene: MainScene
+  scene: MainScene,
 };
 
 const game = new Phaser.Game(config);
