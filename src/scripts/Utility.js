@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 class Utility {
   /**
    * Calculates the angle in radians between two points.
