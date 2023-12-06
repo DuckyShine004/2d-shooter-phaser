@@ -29,17 +29,17 @@ class Bullet extends Phaser.GameObjects.Ellipse {
 
     this.removeBullet = removeBullet;
 
-    scene.add.existing(this);
-    scene.physics.add.existing(this);
-
-    this.setStrokeStyle(2, 0x000000);
-
     this.particles = scene.add.particles(0, 0, 'red', {
       speed: 100,
       scale: {start: 0.05, end: 0},
       blendMode: 'ADD',
       follow: this,
     });
+
+    scene.add.existing(this);
+    scene.physics.add.existing(this);
+
+    this.setStrokeStyle(2, 0x000000);
   }
 
   /**
