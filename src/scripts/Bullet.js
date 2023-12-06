@@ -16,7 +16,7 @@ class Bullet extends Phaser.GameObjects.Ellipse {
   constructor(scene, x, y, mouseX, mouseY, removeBullet, radius, color) {
     super(scene, x, y, radius, radius, color);
 
-    this.speed = 20;
+    this.speed = 10;
     this.radius = radius;
     this.bounds = scene.physics.world.bounds;
 
@@ -31,6 +31,8 @@ class Bullet extends Phaser.GameObjects.Ellipse {
 
     scene.add.existing(this);
     scene.physics.add.existing(this);
+
+    this.setStrokeStyle(2, 0x000000);
   }
 
   /**

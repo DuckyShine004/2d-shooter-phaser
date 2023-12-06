@@ -3,11 +3,11 @@ class Player extends Phaser.GameObjects.Ellipse {
   /**
    * Initialization of the player object.
    *
-   * @param {*} scene - The game's current scene.
-   * @param {*} x - The x coordinate of the player.
-   * @param {*} y - The x coordinate of the player.
-   * @param {*} radius - The radius of the player object.
-   * @param {*} color - The color of the player.
+   * @param {Object} scene - The game's current scene.
+   * @param {number} x - The x coordinate of the player.
+   * @param {number} y - The x coordinate of the player.
+   * @param {number} radius - The radius of the player object.
+   * @param {number} color - The color of the player.
    * @return {void} Nothing is returned.
    */
   constructor(scene, x, y, radius, color) {
@@ -17,14 +17,15 @@ class Player extends Phaser.GameObjects.Ellipse {
     this.radius = radius;
     this.mousePressed = false;
 
+    this.bullets = [];
+
+    this.arm = scene.add.circle(this.x, this.y, 15, 0x202020);
+
     scene.add.existing(this);
     scene.physics.add.existing(this);
 
-    this.setStrokeStyle(2, 0xffffff);
+    this.setStrokeStyle(3, 0x000000);
     this.body.setCollideWorldBounds(true);
-
-    this.arm = scene.add.circle(this.x, this.y, 10, 0xffffff);
-    this.bullets = [];
   }
 
   /**
@@ -95,8 +96,8 @@ class Player extends Phaser.GameObjects.Ellipse {
           mouse.x,
           mouse.y,
           this.removeBullet.bind(this),
-          5,
-          0xffffff,
+          10,
+          0xffea00,
         ),
       );
 

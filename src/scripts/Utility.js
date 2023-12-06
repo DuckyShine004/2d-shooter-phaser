@@ -1,5 +1,31 @@
 // eslint-disable-next-line no-unused-vars
 class Utility {
+  static getBackground(scene, window) {
+    const color1 = 0x05f29b;
+    const color2 = 0x037f51;
+
+    const size = 150;
+
+    let x;
+    let y;
+
+    let dx;
+    let dy;
+
+    for (y = 0; y < window.innerHeight; y += size) {
+      for (x = 0; x < window.innerWidth; x += size) {
+        dx = x / size;
+        dy = y / size;
+
+        if ((dx + dy) & 1) {
+          scene.add.rectangle(x, y, size, size, color1);
+        } else {
+          scene.add.rectangle(x, y, size, size, color2);
+        }
+      }
+    }
+  }
+
   /**
    * Calculates the angle in radians between two points.
    *
