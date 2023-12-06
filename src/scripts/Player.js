@@ -2,13 +2,15 @@ class Player extends Phaser.GameObjects.Ellipse {
   constructor(scene, x, y, radius, color) {
     super(scene, x, y, radius, radius, color);
 
+    this.radius = radius;
+
     scene.add.existing(this);
     scene.physics.add.existing(this);
 
     this.setStrokeStyle(2, 0xffffff);
     this.body.setCollideWorldBounds(true);
 
-    this.arm = scene.add.circle(this.x, this.y, 50, 0xffffff);
+    this.arm = scene.add.circle(this.x, this.y, 10, 0xffffff);
   }
 
   update(keys, cursors, mouse) {
@@ -32,7 +34,9 @@ class Player extends Phaser.GameObjects.Ellipse {
   }
 
   updateArm(mouse) {
-    this.arm.x = mouse.worldX;
-    this.arm.y = mouse.worldY;
+    const theta = Utility.getTheta(this.x, mouse.worldX, this.y, mouse.worldY);
+
+    this.arm.x = this.x + (this.radius * Math.cos(theta));
+    this.arm.y = this.y + (this.radius * Math.sin(theta));
   }
 }
