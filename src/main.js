@@ -18,6 +18,12 @@ class MainScene extends Phaser.Scene {
     this.cursors = this.input.keyboard.createCursorKeys();
     this.mouse = this.input.activePointer;
 
+    this.input.on('pointerdown', (pointer) => {
+      if (pointer.leftButtonDown()) {
+        this.player.handleClick(pointer);
+      }
+    });
+
     this.player = new Player(this, 400, 400, 50, 0xff0000);
   }
 
