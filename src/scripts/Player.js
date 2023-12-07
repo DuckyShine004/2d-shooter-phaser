@@ -16,8 +16,10 @@ class Player extends Phaser.GameObjects.Ellipse {
     this.speed = 300;
     this.radius = radius;
     this.mousePressed = false;
+    this.lastEnemySpawnTime = 0;
 
     this.bullets = [];
+    this.enemies = [];
 
     this.arm = scene.add.circle(this.x, this.y, 15, 0x202020);
 
@@ -26,6 +28,17 @@ class Player extends Phaser.GameObjects.Ellipse {
 
     this.setStrokeStyle(3, 0x000000);
     this.body.setCollideWorldBounds(true);
+  }
+
+  spawnEnemy(time) {
+    this.lastEnemySpawnTime = time;
+    this.enemies.push(
+      new Enemy(this.scene, 0, 0, this.removeEnemy.bind(this), 60, 0x202020),
+    );
+  }
+
+  removeEnemy(enemy) {
+    this.enemies = this.enemies.filter((e) => e !== enemy);
   }
 
   /**
@@ -44,9 +57,10 @@ class Player extends Phaser.GameObjects.Ellipse {
    * @param {Object} keys - The keyboard input.
    * @param {Object} cursors - The arrow keys.
    * @param {Object} mouse - The mouse input.
+   * @param {number} time - The time elapsed.
    * @return {void} Nothing is returned.
    */
-  update(keys, cursors, mouse) {
+  update(keys, cursors, mouse, time) {
     this.body.setVelocity(0, 0);
 
     if (keys.left.isDown || cursors.left.isDown) {
@@ -61,6 +75,7 @@ class Player extends Phaser.GameObjects.Ellipse {
     }
 
     this.updateArm(mouse);
+    this.updateEnemies(time);
     this.updateBullets(mouse);
   }
 
@@ -109,6 +124,16 @@ class Player extends Phaser.GameObjects.Ellipse {
 
     for (const bullet of [...this.bullets]) {
       bullet.update();
+    }
+  }
+
+  updateEnemies(time) {
+    if (time - this.lastEnemySpawnTime > 2000) {
+      this.spawnEnemy(time);
+    }
+
+    for (const enemy of [...this.enemies]) {
+      enemy.update(this);
     }
   }
 }

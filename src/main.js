@@ -8,6 +8,15 @@ class MainScene extends Phaser.Scene {
     super('myGameScene');
   }
 
+  handleBulletEnemyCollision(bullet, enemy) {
+    bullet.removeBullet(bullet);
+    enemy.removeEnemy(enemy);
+
+    bullet.destroy();
+    enemy.destroy();
+    bullet.particles.destroy();
+  }
+
   /**
    * Preloads any resources. Normally this function is utilized for
    * optimization.
@@ -43,11 +52,19 @@ class MainScene extends Phaser.Scene {
 
   /**
    * Updates and renders the scene.
-   *
+   *@param {number} time - The time elapsed.
    * @return {void} Nothing is being returned.
    */
-  update() {
-    this.player.update(this.keys, this.cursors, this.mouse);
+  update(time) {
+    this.player.update(this.keys, this.cursors, this.mouse, time);
+
+    this.physics.add.overlap(
+      this.player.bullets,
+      this.player.enemies,
+      this.handleBulletEnemyCollision,
+      null,
+      this,
+    );
   }
 }
 
