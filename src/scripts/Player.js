@@ -18,6 +18,7 @@ class Player extends Phaser.GameObjects.Ellipse {
     this.mousePressed = false;
 
     this.bullets = [];
+    this.enemies = [];
 
     this.arm = scene.add.circle(this.x, this.y, 15, 0x202020);
 
@@ -27,7 +28,13 @@ class Player extends Phaser.GameObjects.Ellipse {
     this.setStrokeStyle(3, 0x000000);
     this.body.setCollideWorldBounds(true);
 
-    this.enemy = new Enemy(scene, 10, 10, 60, 0xffffff);
+    this.enemies.push(
+      new Enemy(scene, 0, 0, this.removeEnemy.bind(this), 60, 0x202020),
+    );
+  }
+
+  removeEnemy(enemy) {
+    this.enemies = this.enemies.filter((e) => e !== enemy);
   }
 
   /**
@@ -62,8 +69,8 @@ class Player extends Phaser.GameObjects.Ellipse {
       this.body.setVelocityY(this.speed);
     }
 
-    this.enemy.update(this);
     this.updateArm(mouse);
+    this.updateEnemies();
     this.updateBullets(mouse);
   }
 
@@ -112,6 +119,12 @@ class Player extends Phaser.GameObjects.Ellipse {
 
     for (const bullet of [...this.bullets]) {
       bullet.update();
+    }
+  }
+
+  updateEnemies() {
+    for (const enemy of [...this.enemies]) {
+      enemy.update(this);
     }
   }
 }

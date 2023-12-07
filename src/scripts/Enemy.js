@@ -1,10 +1,12 @@
 // eslint-disable-next-line no-unused-vars
 class Enemy extends Phaser.GameObjects.Ellipse {
-  constructor(scene, x, y, radius, color) {
+  constructor(scene, x, y, removeEnemy, radius, color) {
     super(scene, x, y, radius, radius, color);
 
     this.speed = 0.05;
     this.radius = radius;
+
+    this.removeEnemy = removeEnemy;
 
     scene.add.existing(this);
     scene.physics.add.existing(this);
