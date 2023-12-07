@@ -26,6 +26,8 @@ class Player extends Phaser.GameObjects.Ellipse {
 
     this.setStrokeStyle(3, 0x000000);
     this.body.setCollideWorldBounds(true);
+
+    this.enemy = new Enemy(scene, 10, 10, 60, 0xffffff);
   }
 
   /**
@@ -60,6 +62,7 @@ class Player extends Phaser.GameObjects.Ellipse {
       this.body.setVelocityY(this.speed);
     }
 
+    this.enemy.update(this);
     this.updateArm(mouse);
     this.updateBullets(mouse);
   }
