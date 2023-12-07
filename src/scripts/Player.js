@@ -57,6 +57,7 @@ class Player extends Phaser.GameObjects.Ellipse {
    * @param {Object} keys - The keyboard input.
    * @param {Object} cursors - The arrow keys.
    * @param {Object} mouse - The mouse input.
+   * @param {number} time - The time elapsed.
    * @return {void} Nothing is returned.
    */
   update(keys, cursors, mouse, time) {

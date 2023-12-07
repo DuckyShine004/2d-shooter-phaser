@@ -52,7 +52,7 @@ class MainScene extends Phaser.Scene {
 
   /**
    * Updates and renders the scene.
-   *
+   *@param {number} time - The time elapsed.
    * @return {void} Nothing is being returned.
    */
   update(time) {
