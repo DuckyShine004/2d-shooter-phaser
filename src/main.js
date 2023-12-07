@@ -55,8 +55,8 @@ class MainScene extends Phaser.Scene {
    *
    * @return {void} Nothing is being returned.
    */
-  update() {
-    this.player.update(this.keys, this.cursors, this.mouse);
+  update(time) {
+    this.player.update(this.keys, this.cursors, this.mouse, time);
 
     this.physics.add.overlap(
       this.player.bullets,
