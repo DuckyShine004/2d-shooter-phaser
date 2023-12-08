@@ -39,7 +39,8 @@ class MenuScene extends Phaser.Scene {
       'play_hover_button',
       'play_click_button',
       () => {
-        this.scene.start('MainScene');
+        this.scene.start('GameScene');
+        this.mainMenuMusic.stop();
       },
     );
 
