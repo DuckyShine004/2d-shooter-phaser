@@ -5,7 +5,7 @@ class MainScene extends Phaser.Scene {
    * @return {void} Nothing is being returned.
    */
   constructor() {
-    super('myGameScene');
+    super('MainScene');
   }
 
   handleBulletEnemyCollision(bullet, enemy) {
@@ -79,7 +79,7 @@ const config = {
       debug: false,
     },
   },
-  scene: MainScene,
+  scene: [MenuScene, MainScene],
 };
 
 const game = new Phaser.Game(config);
