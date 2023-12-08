@@ -17,10 +17,12 @@ class Player extends Phaser.GameObjects.Ellipse {
     this.radius = radius;
     this.mousePressed = false;
     this.lastEnemySpawnTime = 0;
-    this.shootSfx = scene.sound.add('shoot_sfx');
 
     this.bullets = [];
     this.enemies = [];
+
+    this.shootSfx = scene.sound.add('shoot_sfx');
+    this.explosionSfx = scene.sound.add('explosion_sfx');
 
     this.arm = scene.add.circle(this.x, this.y, 15, 0x202020);
 

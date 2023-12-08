@@ -10,6 +10,8 @@ class GameScene extends Phaser.Scene {
   }
 
   handleBulletEnemyCollision(bullet, enemy) {
+    this.sound.play('explosion_sfx');
+
     bullet.removeBullet(bullet);
     enemy.removeEnemy(enemy);
 
@@ -28,7 +30,8 @@ class GameScene extends Phaser.Scene {
     Utility.getBackground(this, window);
 
     this.load.audio('game_music', 'src/assets/sounds/music/game.mp3');
-    this.load.audio('shoot_sfx', 'src/assets/sounds/music/shoot.wav');
+    this.load.audio('shoot_sfx', 'src/assets/sounds/sfx/shoot.wav');
+    this.load.audio('explosion_sfx', 'src/assets/sounds/sfx/explosion.wav');
 
     // this.load.setBaseURL('https://labs.phaser.io');
 
