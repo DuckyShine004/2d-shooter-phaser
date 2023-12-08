@@ -21,7 +21,8 @@ class Player extends Phaser.GameObjects.Ellipse {
     this.bullets = [];
     this.enemies = [];
 
-    this.arm = scene.add.circle(this.x, this.y, 15, 0x202020);
+    this.arm = scene.add.circle(this.x, this.y, 15, 0x2a2a2a);
+    this.arm.setStrokeStyle(2, 0x000000);
 
     scene.add.existing(this);
     scene.physics.add.existing(this);
@@ -33,7 +34,7 @@ class Player extends Phaser.GameObjects.Ellipse {
   spawnEnemy(time) {
     this.lastEnemySpawnTime = time;
     this.enemies.push(
-      new Enemy(this.scene, 0, 0, this.removeEnemy.bind(this), 60, 0x202020),
+      new Enemy(this.scene, 0, 0, this.removeEnemy.bind(this), 60, 0xff1d18),
     );
   }
 

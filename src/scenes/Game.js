@@ -58,7 +58,7 @@ class GameScene extends Phaser.Scene {
     this.cursors = this.input.keyboard.createCursorKeys();
     this.mouse = this.input.activePointer;
 
-    this.player = new Player(this, 400, 400, 60, 0x808080);
+    this.player = new Player(this, 400, 400, 60, 0x77c3ec);
   }
 
   /**

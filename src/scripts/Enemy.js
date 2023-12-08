@@ -10,6 +10,8 @@ class Enemy extends Phaser.GameObjects.Ellipse {
 
     scene.add.existing(this);
     scene.physics.add.existing(this);
+
+    this.setStrokeStyle(3, 0x000000);
   }
 
   update(player) {
