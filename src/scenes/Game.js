@@ -28,6 +28,7 @@ class GameScene extends Phaser.Scene {
     Utility.getBackground(this, window);
 
     this.load.audio('game_music', 'src/assets/sounds/music/game.mp3');
+    this.load.audio('shoot_sfx', 'src/assets/sounds/music/shoot.wav');
 
     // this.load.setBaseURL('https://labs.phaser.io');
 
