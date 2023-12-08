@@ -11,17 +11,24 @@ class MenuScene extends Phaser.Scene {
   }
 
   preload() {
+    this.load.image('main_menu', 'src/assets/images/backgrounds/main_menu.png');
+
     for (const button of this.buttons) {
       for (const state of this.states) {
         this.load.image(
           `${button}_${state}`,
-          `./src/assets/images/buttons/${button}_${state}.png`,
+          `src/assets/images/buttons/${button}_${state}.png`,
         );
       }
     }
   }
 
   create() {
+    const backgroundImg = this.add.image(0, 0, 'main_menu').setOrigin(0, 0);
+
+    backgroundImg.displayWidth = window.innerWidth;
+    backgroundImg.displayHeight = window.innerHeight;
+
     new Button(
       this,
       this.buttonX,

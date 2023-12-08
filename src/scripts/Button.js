@@ -3,7 +3,6 @@ class Button extends Phaser.GameObjects.Image {
   constructor(scene, x, y, normal, hover, click, callback) {
     super(scene, x, y, normal);
 
-    console.log(window.innerWidth);
     this.normal = normal;
     this.hover = hover;
     this.click = click;
