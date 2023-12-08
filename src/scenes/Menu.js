@@ -16,11 +16,13 @@ class MenuScene extends Phaser.Scene {
     for (const button of this.buttons) {
       for (const state of this.states) {
         this.load.image(
-          `${button}_${state}`,
+          `${button}_${state}_button`,
           `src/assets/images/buttons/${button}_${state}.png`,
         );
       }
     }
+
+    this.load.audio('main_menu_music', 'src/assets/sounds/music/main_menu.mp3');
   }
 
   create() {
@@ -33,12 +35,19 @@ class MenuScene extends Phaser.Scene {
       this,
       this.buttonX,
       this.buttonY,
-      'play_normal',
-      'play_hover',
-      'play_click',
+      'play_normal_button',
+      'play_hover_button',
+      'play_click_button',
       () => {
-        this.scene.start('MainScene');
+        this.scene.start('GameScene');
+        this.mainMenuMusic.stop();
       },
     );
+
+    this.mainMenuMusic = this.sound.add('main_menu_music', {
+      loop: true,
+    });
+
+    this.mainMenuMusic.play();
   }
 }

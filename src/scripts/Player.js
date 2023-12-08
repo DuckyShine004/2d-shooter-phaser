@@ -116,6 +116,7 @@ class Player extends Phaser.GameObjects.Ellipse {
       );
 
       this.mousePressed = true;
+      this.scene.sound.play('shoot_sfx');
     }
 
     if (mouse.leftButtonReleased() && this.mousePressed) {
