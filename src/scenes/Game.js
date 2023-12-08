@@ -29,13 +29,11 @@ class GameScene extends Phaser.Scene {
   preload() {
     Utility.getBackground(this, window);
 
+    this.load.image('red', 'https://labs.phaser.io/assets/particles/red.png');
+
     this.load.audio('game_music', 'src/assets/sounds/music/game.mp3');
     this.load.audio('shoot_sfx', 'src/assets/sounds/sfx/shoot.wav');
     this.load.audio('explosion_sfx', 'src/assets/sounds/sfx/explosion.wav');
-
-    // this.load.setBaseURL('https://labs.phaser.io');
-
-    // this.load.image('red', 'assets/particles/red.png');
   }
 
   /**

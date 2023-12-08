@@ -21,9 +21,6 @@ class Player extends Phaser.GameObjects.Ellipse {
     this.bullets = [];
     this.enemies = [];
 
-    this.shootSfx = scene.sound.add('shoot_sfx');
-    this.explosionSfx = scene.sound.add('explosion_sfx');
-
     this.arm = scene.add.circle(this.x, this.y, 15, 0x202020);
 
     scene.add.existing(this);
@@ -119,7 +116,7 @@ class Player extends Phaser.GameObjects.Ellipse {
       );
 
       this.mousePressed = true;
-      this.shootSfx.play();
+      this.scene.sound.play('shoot_sfx');
     }
 
     if (mouse.leftButtonReleased() && this.mousePressed) {
