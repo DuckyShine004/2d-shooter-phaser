@@ -34,11 +34,21 @@ class Player extends Phaser.GameObjects.Ellipse {
   spawnEnemy(time) {
     this.lastEnemySpawnTime = time;
 
-    // const x = ;
-    // const y = ;
+    let x;
+    let y;
+
+    const horizontalEdge = Math.random() < 0.5;
+
+    if (horizontalEdge) {
+      x = window.innerWidth * Math.random();
+      y = Math.random() < 0.5 ? 0 : window.innerHeight;
+    } else {
+      x = Math.random() < 0.5 ? 0 : window.innerWidth;
+      y = window.innerHeight * Math.random();
+    }
 
     this.enemies.push(
-      new Enemy(this.scene, 0, 0, this.removeEnemy.bind(this), 60, 0xff1d18),
+      new Enemy(this.scene, x, y, this.removeEnemy.bind(this), 60, 0xff1d18),
     );
   }
 
