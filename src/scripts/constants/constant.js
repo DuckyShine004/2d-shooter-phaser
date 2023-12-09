@@ -13,3 +13,7 @@ const SCORE_Y = 75;
 
 const BAR_SCALE_X = 1.5;
 const BAR_SCALE_Y = 1.25;
+
+const HEALTH_BAR_WIDTH = 132 * BAR_SCALE_X;
+
+const PLAYER_HEALTH = 3;

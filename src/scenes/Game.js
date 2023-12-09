@@ -64,9 +64,21 @@ class GameScene extends Phaser.Scene {
     bullet.removeBullet(bullet);
     enemy.removeEnemy(enemy);
 
-    bullet.destroy();
-    enemy.destroy();
     bullet.particles.destroy();
+  }
+
+  handlePlayerEnemyCollision(player, enemy) {
+    player.health--;
+
+    if (!player.health) {
+      console.log('LOL NOOB');
+    }
+
+    enemy.destroy();
+    enemy.removeEnemy(enemy);
+
+    const ratio = player.health / PLAYER_HEALTH;
+    this.healthBar.displayWidth = Math.max(ratio * HEALTH_BAR_WIDTH);
   }
 
   /**
@@ -112,6 +124,14 @@ class GameScene extends Phaser.Scene {
       this.player.bullets,
       this.player.enemies,
       this.handleBulletEnemyCollision,
+      null,
+      this,
+    );
+
+    this.physics.add.overlap(
+      this.player,
+      this.player.enemies,
+      this.handlePlayerEnemyCollision,
       null,
       this,
     );
