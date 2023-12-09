@@ -16,7 +16,7 @@ class Bullet extends Phaser.GameObjects.Ellipse {
   constructor(scene, x, y, mouseX, mouseY, removeBullet, radius, color) {
     super(scene, x, y, radius, radius, color);
 
-    this.speed = 10;
+    this.speed = 800;
     this.radius = radius;
     this.bounds = scene.physics.world.bounds;
 
@@ -48,8 +48,8 @@ class Bullet extends Phaser.GameObjects.Ellipse {
    * @return {void} Nothing is returned.
    */
   update() {
-    this.body.setVelocityX((this.speed * this.dx) / this.normalization);
-    this.body.setVelocityY((this.speed * this.dy) / this.normalization);
+    this.body.setVelocityX(this.speed * this.dx * this.normalization);
+    this.body.setVelocityY(this.speed * this.dy * this.normalization);
 
     if (
       this.x < this.bounds.left ||
