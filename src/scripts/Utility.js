@@ -43,15 +43,27 @@ class Utility {
   }
 
   /**
+   *
+   * @param {*} x
+   * @param {*} y
+   * @returns
+   */
+  static getMagnitude(x, y) {
+    return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+  }
+
+  static getValidComponents(x, y) {
+    return Math.abs(x) > 0 || Math.abs(y) > 0;
+  }
+
+  /**
    * Calculates the noramlized velocity vector of the object.
    *
-   * @param {number} x - The x coordinate of the object.
+   * @param {number} x - The horizontal velocity component of the object.
    * @param {number} y - The y coordinate of the object.
    * @return {number} The normalized velocity vector.
    */
   static getNormalization(x, y) {
-    const z = Math.pow(x, 2) + Math.pow(y, 2);
-
-    return 1 / Math.sqrt(z);
+    return this.getValidComponents(x, y) ? 1 / this.getMagnitude(x, y) : 0;
   }
 }
