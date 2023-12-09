@@ -33,6 +33,10 @@ class Player extends Phaser.GameObjects.Ellipse {
 
   spawnEnemy(time) {
     this.lastEnemySpawnTime = time;
+
+    // const x = ;
+    // const y = ;
+
     this.enemies.push(
       new Enemy(this.scene, 0, 0, this.removeEnemy.bind(this), 60, 0xff1d18),
     );
@@ -62,18 +66,25 @@ class Player extends Phaser.GameObjects.Ellipse {
    * @return {void} Nothing is returned.
    */
   update(keys, cursors, mouse, time) {
-    this.body.setVelocity(0, 0);
+    let vx = 0;
+    let vy = 0;
 
     if (keys.left.isDown || cursors.left.isDown) {
-      this.body.setVelocityX(-this.speed);
+      vx = -1;
     } else if (keys.right.isDown || cursors.right.isDown) {
-      this.body.setVelocityX(this.speed);
+      vx = 1;
     }
+
     if (keys.up.isDown || cursors.up.isDown) {
-      this.body.setVelocityY(-this.speed);
+      vy = -1;
     } else if (keys.down.isDown || cursors.down.isDown) {
-      this.body.setVelocityY(this.speed);
+      vy = 1;
     }
+
+    const normalization = Utility.getNormalization(vx, vy);
+
+    this.body.setVelocityX(this.speed * vx * normalization);
+    this.body.setVelocityY(this.speed * vy * normalization);
 
     this.updateArm(mouse);
     this.updateEnemies(time);
