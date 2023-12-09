@@ -6,8 +6,8 @@ class MenuScene extends Phaser.Scene {
     this.buttons = ['play'];
     this.states = ['normal', 'hover', 'click'];
 
-    this.buttonX = window.innerWidth / 2;
-    this.buttonY = window.innerHeight / 2;
+    this.buttonX = WINDOW_WIDTH / 2;
+    this.buttonY = WINDOW_HEIGHT / 2;
   }
 
   preload() {
@@ -28,8 +28,8 @@ class MenuScene extends Phaser.Scene {
   create() {
     const backgroundImg = this.add.image(0, 0, 'main_menu').setOrigin(0, 0);
 
-    backgroundImg.displayWidth = window.innerWidth;
-    backgroundImg.displayHeight = window.innerHeight;
+    backgroundImg.displayWidth = WINDOW_WIDTH;
+    backgroundImg.displayHeight = WINDOW_HEIGHT;
 
     new Button(
       this,

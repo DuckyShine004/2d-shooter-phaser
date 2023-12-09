@@ -40,11 +40,11 @@ class Player extends Phaser.GameObjects.Ellipse {
     const horizontalEdge = Math.random() < 0.5;
 
     if (horizontalEdge) {
-      x = window.innerWidth * Math.random();
-      y = Math.random() < 0.5 ? 0 : window.innerHeight;
+      x = WINDOW_WIDTH * Math.random();
+      y = Math.random() < 0.5 ? 0 : WINDOW_HEIGHT;
     } else {
-      x = Math.random() < 0.5 ? 0 : window.innerWidth;
-      y = window.innerHeight * Math.random();
+      x = Math.random() < 0.5 ? 0 : WINDOW_WIDTH;
+      y = WINDOW_HEIGHT * Math.random();
     }
 
     this.enemies.push(

@@ -1,7 +1,8 @@
 const config = {
   type: Phaser.AUTO,
-  width: window.innerWidth,
-  height: window.innerHeight,
+  width: WINDOW_WIDTH,
+  height: WINDOW_HEIGHT,
+  pixelArt: true,
   physics: {
     default: 'arcade',
     arcade: {
@@ -12,8 +13,4 @@ const config = {
   scene: [MenuScene, GameScene],
 };
 
-const game = new Phaser.Game(config);
-
-window.addEventListener('resize', () => {
-  game.scale.resize(window.innerWidth, window.innerHeight);
-});
+new Phaser.Game(config);

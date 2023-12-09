@@ -12,13 +12,13 @@ class GameScene extends Phaser.Scene {
   initializeGame() {
     this.initializeInputs();
     this.initializeSounds();
+    this.initializeUI();
   }
 
   initializeInputs() {
     this.input.setDefaultCursor('none');
 
     this.crosshair = this.add.image(0, 0, 'crosshair');
-    // this.crosshair.setOrigin(0, 0);
     this.crosshair.depth = 1000;
 
     this.input.on('pointermove', (pointer) => {
@@ -44,6 +44,16 @@ class GameScene extends Phaser.Scene {
     this.gameMusic.play();
   }
 
+  initializeUI() {
+    this.health = this.add.image(
+      this.scale.width * 0.1,
+      this.scale.height * 0.1,
+      'health',
+    );
+
+    this.health.setScale(1.5, 1.25);
+  }
+
   handleBulletEnemyCollision(bullet, enemy) {
     this.sound.play('explosion_sfx');
 
@@ -62,10 +72,11 @@ class GameScene extends Phaser.Scene {
    * @return {void} Nothing is being returned.
    */
   preload() {
-    Utility.getBackground(this, window);
+    Utility.getBackground(this);
 
     this.load.image('red', 'https://labs.phaser.io/assets/particles/red.png');
     this.load.image('crosshair', 'src/assets/images/ui/crosshair.png');
+    this.load.image('health', 'src/assets/images/ui/health.png');
 
     this.load.audio('game_music', 'src/assets/sounds/music/game.mp3');
     this.load.audio('shoot_sfx', 'src/assets/sounds/sfx/shoot.wav');
