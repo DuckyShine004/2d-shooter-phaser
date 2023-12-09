@@ -29,6 +29,8 @@ class Player extends Phaser.GameObjects.Ellipse {
 
     this.setStrokeStyle(3, 0x000000);
     this.body.setCollideWorldBounds(true);
+
+    this.health = PLAYER_HEALTH;
   }
 
   spawnEnemy(time) {
@@ -54,6 +56,7 @@ class Player extends Phaser.GameObjects.Ellipse {
 
   removeEnemy(enemy) {
     this.enemies = this.enemies.filter((e) => e !== enemy);
+    enemy.destroy();
   }
 
   /**
@@ -64,6 +67,7 @@ class Player extends Phaser.GameObjects.Ellipse {
    */
   removeBullet(bullet) {
     this.bullets = this.bullets.filter((b) => b !== bullet);
+    bullet.destroy();
   }
 
   /**
