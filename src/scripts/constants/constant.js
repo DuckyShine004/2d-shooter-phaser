@@ -8,5 +8,8 @@ const HEALTH_Y = 10;
 const HEALTH_BAR_X = 85;
 const HEALTH_BAR_Y = 25;
 
-const HEALTH_SCALE_X = 1.5;
-const HEALTH_SCALE_Y = 1.25;
+const SCORE_X = 10;
+const SCORE_Y = 75;
+
+const BAR_SCALE_X = 1.5;
+const BAR_SCALE_Y = 1.25;
