@@ -9,6 +9,55 @@ class GameScene extends Phaser.Scene {
     super('GameScene');
   }
 
+  initializeGame() {
+    this.initializeInputs();
+    this.initializeSounds();
+    this.initializeUI();
+  }
+
+  initializeInputs() {
+    this.input.setDefaultCursor('none');
+
+    this.crosshair = this.add.image(0, 0, 'crosshair');
+    this.crosshair.depth = 1000;
+
+    this.input.on('pointermove', (pointer) => {
+      this.crosshair.setPosition(pointer.x, pointer.y);
+    });
+
+    this.keys = this.input.keyboard.addKeys({
+      up: 'W',
+      down: 'S',
+      left: 'A',
+      right: 'D',
+    });
+
+    this.cursors = this.input.keyboard.createCursorKeys();
+    this.mouse = this.input.activePointer;
+  }
+
+  initializeSounds() {
+    this.gameMusic = this.sound.add('game_music', {
+      loop: true,
+    });
+
+    this.gameMusic.play();
+  }
+
+  initializeUI() {
+    this.health = this.add.image(HEALTH_X, HEALTH_Y, 'health').setOrigin(0, 0);
+
+    this.healthBar = this.add
+      .image(HEALTH_BAR_X, HEALTH_BAR_Y, 'health_bar')
+      .setOrigin(0, 0);
+
+    this.score = this.add.image(SCORE_X, SCORE_Y, 'score').setOrigin(0, 0);
+
+    this.health.setScale(BAR_SCALE_X, BAR_SCALE_Y);
+    this.healthBar.setScale(BAR_SCALE_X, BAR_SCALE_Y);
+    this.score.setScale(BAR_SCALE_X, BAR_SCALE_Y);
+  }
+
   handleBulletEnemyCollision(bullet, enemy) {
     this.sound.play('explosion_sfx');
 
@@ -27,9 +76,13 @@ class GameScene extends Phaser.Scene {
    * @return {void} Nothing is being returned.
    */
   preload() {
-    Utility.getBackground(this, window);
+    Utility.getBackground(this);
 
     this.load.image('red', 'https://labs.phaser.io/assets/particles/red.png');
+    this.load.image('crosshair', 'src/assets/images/ui/crosshair.png');
+    this.load.image('health', 'src/assets/images/ui/health.png');
+    this.load.image('health_bar', 'src/assets/images/ui/health-bar.png');
+    this.load.image('score', 'src/assets/images/ui/score.png');
 
     this.load.audio('game_music', 'src/assets/sounds/music/game.mp3');
     this.load.audio('shoot_sfx', 'src/assets/sounds/sfx/shoot.wav');
@@ -42,21 +95,7 @@ class GameScene extends Phaser.Scene {
    * @return {void} Nothing is being returned.
    */
   create() {
-    this.gameMusic = this.sound.add('game_music', {
-      loop: true,
-    });
-
-    this.gameMusic.play();
-
-    this.keys = this.input.keyboard.addKeys({
-      up: 'W',
-      down: 'S',
-      left: 'A',
-      right: 'D',
-    });
-
-    this.cursors = this.input.keyboard.createCursorKeys();
-    this.mouse = this.input.activePointer;
+    this.initializeGame();
 
     this.player = new Player(this, 400, 400, 60, 0x77c3ec);
   }
