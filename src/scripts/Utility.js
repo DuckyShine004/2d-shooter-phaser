@@ -6,16 +6,10 @@ class Utility {
 
     const size = 150;
 
-    let x;
-    let y;
-
-    let dx;
-    let dy;
-
-    for (y = 0; y < window.innerHeight; y += size) {
-      for (x = 0; x < window.innerWidth; x += size) {
-        dx = x / size;
-        dy = y / size;
+    for (let y = 0; y < window.innerHeight; y += size) {
+      for (let x = 0; x < window.innerWidth; x += size) {
+        const dx = x / size;
+        const dy = y / size;
 
         if ((dx + dy) & 1) {
           scene.add.rectangle(x, y, size, size, color1);
@@ -43,15 +37,35 @@ class Utility {
   }
 
   /**
-   * Calculates the noramlized velocity vector of the object.
+   * Calculates the magnitude of the vector.
    *
-   * @param {number} x - The x coordinate of the object.
-   * @param {number} y - The y coordinate of the object.
+   * @param {number} x - The horizontal component of the vector.
+   * @param {number} y - The vertical component of the vector.
+   * @return {number} The magnitude of the vector.
+   */
+  static getMagnitude(x, y) {
+    return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+  }
+
+  /**
+   * Checks if any of the vector components are non-zero.
+   *
+   * @param {number} x - The horizontal component of the vector.
+   * @param {number} y - The vertical component of the vector.
+   * @return {boolean} The result of the check.
+   */
+  static checkNonZeroComponents(x, y) {
+    return Math.abs(x) > 0 || Math.abs(y) > 0;
+  }
+
+  /**
+   * Calculates the normalized velocity vector.
+   *
+   * @param {number} x - The horizontal component of the vector.
+   * @param {number} y - The vertical component of the vector.
    * @return {number} The normalized velocity vector.
    */
   static getNormalization(x, y) {
-    const z = Math.pow(x, 2) + Math.pow(y, 2);
-
-    return 1 / Math.sqrt(z);
+    return this.checkNonZeroComponents(x, y) ? 1 / this.getMagnitude(x, y) : 0;
   }
 }

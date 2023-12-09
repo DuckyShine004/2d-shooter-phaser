@@ -3,7 +3,7 @@ class Enemy extends Phaser.GameObjects.Ellipse {
   constructor(scene, x, y, removeEnemy, radius, color) {
     super(scene, x, y, radius, radius, color);
 
-    this.speed = 0.05;
+    this.speed = 300;
     this.radius = radius;
 
     this.removeEnemy = removeEnemy;
@@ -22,7 +22,7 @@ class Enemy extends Phaser.GameObjects.Ellipse {
 
     const normalization = Utility.getNormalization(dx, dy);
 
-    this.body.setVelocityX((this.speed * dx) / normalization);
-    this.body.setVelocityY((this.speed * dy) / normalization);
+    this.body.setVelocityX(this.speed * dx * normalization);
+    this.body.setVelocityY(this.speed * dy * normalization);
   }
 }
