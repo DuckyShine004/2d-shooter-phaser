@@ -11,8 +11,6 @@ class Utility {
         const dx = x / size;
         const dy = y / size;
 
-        console.log(x, y);
-
         if ((dx + dy) & 1) {
           scene.add.rectangle(x, y, size, size, color1).setOrigin(0, 0);
         } else {

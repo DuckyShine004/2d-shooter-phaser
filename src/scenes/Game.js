@@ -45,13 +45,14 @@ class GameScene extends Phaser.Scene {
   }
 
   initializeUI() {
-    this.health = this.add.image(
-      this.scale.width * 0.1,
-      this.scale.height * 0.1,
-      'health',
-    );
+    this.health = this.add.image(HEALTH_X, HEALTH_Y, 'health').setOrigin(0, 0);
 
-    this.health.setScale(1.5, 1.25);
+    this.healthBar = this.add
+      .image(HEALTH_X, HEALTH_Y, 'health_bar')
+      .setOrigin(0, 0);
+
+    this.health.setScale(HEALTH_SCALE_X, HEALTH_SCALE_Y);
+    this.healthBar.setScale(HEALTH_SCALE_X, HEALTH_SCALE_Y);
   }
 
   handleBulletEnemyCollision(bullet, enemy) {
@@ -77,6 +78,7 @@ class GameScene extends Phaser.Scene {
     this.load.image('red', 'https://labs.phaser.io/assets/particles/red.png');
     this.load.image('crosshair', 'src/assets/images/ui/crosshair.png');
     this.load.image('health', 'src/assets/images/ui/health.png');
+    this.load.image('health_bar', 'src/assets/images/ui/health-bar.png');
 
     this.load.audio('game_music', 'src/assets/sounds/music/game.mp3');
     this.load.audio('shoot_sfx', 'src/assets/sounds/sfx/shoot.wav');
