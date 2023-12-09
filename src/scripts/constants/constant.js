@@ -11,9 +11,13 @@ const HEALTH_BAR_Y = 25;
 const SCORE_X = 10;
 const SCORE_Y = 75;
 
+const SCORE_TEXT_X = 180;
+const SCORE_TEXT_Y = 87;
+
 const BAR_SCALE_X = 1.5;
 const BAR_SCALE_Y = 1.25;
 
 const HEALTH_BAR_WIDTH = 132 * BAR_SCALE_X;
 
 const PLAYER_HEALTH = 3;
+const SCORE_INCREMENT = 10;

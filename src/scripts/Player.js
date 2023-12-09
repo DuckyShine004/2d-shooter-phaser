@@ -31,6 +31,7 @@ class Player extends Phaser.GameObjects.Ellipse {
     this.body.setCollideWorldBounds(true);
 
     this.health = PLAYER_HEALTH;
+    this.score = 0;
   }
 
   spawnEnemy(time) {

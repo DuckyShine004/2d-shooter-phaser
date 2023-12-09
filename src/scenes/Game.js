@@ -18,11 +18,11 @@ class GameScene extends Phaser.Scene {
   initializeInputs() {
     this.input.setDefaultCursor('none');
 
-    this.crosshair = this.add.image(0, 0, 'crosshair');
-    this.crosshair.depth = 1000;
+    this.crosshairImg = this.add.image(0, 0, 'crosshair');
+    this.crosshairImg.depth = 1000;
 
     this.input.on('pointermove', (pointer) => {
-      this.crosshair.setPosition(pointer.x, pointer.y);
+      this.crosshairImg.setPosition(pointer.x, pointer.y);
     });
 
     this.keys = this.input.keyboard.addKeys({
@@ -45,17 +45,26 @@ class GameScene extends Phaser.Scene {
   }
 
   initializeUI() {
-    this.health = this.add.image(HEALTH_X, HEALTH_Y, 'health').setOrigin(0, 0);
+    this.healthImg = this.add
+      .image(HEALTH_X, HEALTH_Y, 'health')
+      .setOrigin(0, 0);
 
-    this.healthBar = this.add
+    this.healthBarImg = this.add
       .image(HEALTH_BAR_X, HEALTH_BAR_Y, 'health_bar')
       .setOrigin(0, 0);
 
-    this.score = this.add.image(SCORE_X, SCORE_Y, 'score').setOrigin(0, 0);
+    this.scoreImg = this.add.image(SCORE_X, SCORE_Y, 'score').setOrigin(0, 0);
 
-    this.health.setScale(BAR_SCALE_X, BAR_SCALE_Y);
-    this.healthBar.setScale(BAR_SCALE_X, BAR_SCALE_Y);
-    this.score.setScale(BAR_SCALE_X, BAR_SCALE_Y);
+    this.healthImg.setScale(BAR_SCALE_X, BAR_SCALE_Y);
+    this.healthBarImg.setScale(BAR_SCALE_X, BAR_SCALE_Y);
+    this.scoreImg.setScale(BAR_SCALE_X, BAR_SCALE_Y);
+
+    this.score = this.add.text(SCORE_TEXT_X, SCORE_TEXT_Y, '0', {
+      font: '32px "Press Start 2P"',
+      align: 'left',
+    });
+
+    this.score.setOrigin(1, 0);
   }
 
   handleBulletEnemyCollision(bullet, enemy) {
@@ -63,6 +72,9 @@ class GameScene extends Phaser.Scene {
 
     bullet.removeBullet(bullet);
     enemy.removeEnemy(enemy);
+
+    this.player.score += SCORE_INCREMENT;
+    this.score.text = this.player.score.toString();
 
     bullet.particles.destroy();
   }
@@ -78,7 +90,7 @@ class GameScene extends Phaser.Scene {
     enemy.removeEnemy(enemy);
 
     const ratio = player.health / PLAYER_HEALTH;
-    this.healthBar.displayWidth = Math.max(ratio * HEALTH_BAR_WIDTH);
+    this.healthBarImg.displayWidth = Math.max(ratio * HEALTH_BAR_WIDTH);
   }
 
   /**
