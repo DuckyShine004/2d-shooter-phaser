@@ -11,7 +11,7 @@ class Entity extends Phaser.GameObjects.Ellipse {
     scene.add.existing(this);
     scene.physics.add.existing(this);
 
-    this.setStrokeStyle(stroke, 0x000000);
+    this.setStrokeStyle(stroke, BLACK);
     this.body.setCollideWorldBounds(isCollideBounds);
   }
 }

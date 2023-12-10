@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-class Bullet extends Phaser.GameObjects.Ellipse {
+class Bullet extends Entity {
   /**
    * Initialization of the bullet object.
    *
@@ -14,10 +14,8 @@ class Bullet extends Phaser.GameObjects.Ellipse {
    * @return {void} Nothing is returned.
    */
   constructor(scene, x, y, mouse, entityManager, radius, color) {
-    super(scene, x, y, radius, radius, color);
+    super(scene, x, y, radius, color, BULLET_SPEED, 2, false, entityManager);
 
-    this.speed = 800;
-    this.radius = radius;
     this.bounds = scene.physics.world.bounds;
 
     this.theta = Utility.getTheta(this.x, mouse.x, this.y, mouse.y);
@@ -27,19 +25,12 @@ class Bullet extends Phaser.GameObjects.Ellipse {
 
     this.normalization = Utility.getNormalization(this.dx, this.dy);
 
-    this.entityManager = entityManager;
-
     this.particles = scene.add.particles(0, 0, 'red', {
       speed: 100,
       scale: {start: 0.05, end: 0},
       blendMode: 'ADD',
       follow: this,
     });
-
-    scene.add.existing(this);
-    scene.physics.add.existing(this);
-
-    this.setStrokeStyle(2, 0x000000);
   }
 
   isOutOfBounds() {
