@@ -22,10 +22,8 @@ const HEALTH_BAR_WIDTH = 132 * BAR_SCALE_X;
 const SCORE_TEXT_X = 180;
 const SCORE_TEXT_Y = 87;
 
-const BUTTON_X = WINDOW_WIDTH / 2;
-const BUTTON_Y = WINDOW_HEIGHT / 2;
-
 const TITLE_SIZE = '60px';
+const BUTTON_FONT_SIZE = '34px';
 
 const TITLE_X = WINDOW_WIDTH * 0.5;
 const TITLE_Y = WINDOW_HEIGHT * 0.2;
