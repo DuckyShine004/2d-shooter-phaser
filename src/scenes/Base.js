@@ -1,10 +1,23 @@
+// eslint-disable-next-line no-unused-vars
 class BaseScene extends Phaser.Scene {
+  /**
+   * Initialization of the base scene class.
+   *
+   * @param {string} key - A scene's key, in the form of a string.
+   * @return {void} Nothing is returned.
+   */
   constructor(key) {
     super(key);
 
     this.music = null;
   }
 
+  /**
+   * Initializes game inputs.
+   *
+   * @param {Object} scene - The current scene.
+   * @return {void} Nothing is returned.
+   */
   initializeKeyInputs(scene) {
     this.keys = this.input.keyboard.addKeys({
       up: 'W',
@@ -17,6 +30,12 @@ class BaseScene extends Phaser.Scene {
     this.mouse = this.input.activePointer;
   }
 
+  /**
+   * Initializes the background music for the scene.
+   *
+   * @param {string} musicKey - The music key.
+   * @return {void} Nothing is returned.
+   */
   initializeMusic(musicKey) {
     this.music = this.sound.add(musicKey, {
       loop: true,
@@ -25,6 +44,16 @@ class BaseScene extends Phaser.Scene {
     this.music.play();
   }
 
+  /**
+   * Initializes UI elements.
+   *
+   * @param {Object} scene - The current scene.
+   * @param {string} cursorKey - The cursor key.
+   * @param {string} backgroundKey - The background key.
+   * @param {boolean} isCrosshair - Do we have a custom crosshair ready.
+   * @param {string} buttonText - The button's text.
+   * @return {void} Nothing is returned.
+   */
   initializeUI(scene, cursorKey, backgroundKey = null, isCrosshair = false, buttonText) {
     this.input.setDefaultCursor(cursorKey);
 
@@ -40,7 +69,7 @@ class BaseScene extends Phaser.Scene {
     if (backgroundKey) {
       this.createButton(scene, buttonText);
 
-      var backgroundImg = scene.add.image(0, 0, backgroundKey).setOrigin(0, 0);
+      const backgroundImg = scene.add.image(0, 0, backgroundKey).setOrigin(0, 0);
 
       backgroundImg.displayWidth = WINDOW_WIDTH;
       backgroundImg.displayHeight = WINDOW_HEIGHT;
@@ -49,6 +78,11 @@ class BaseScene extends Phaser.Scene {
     }
   }
 
+  /**
+   * Load all fonts.
+   *
+   * @return {void} Nothing is returned.
+   */
   loadFonts() {
     WebFont.load({
       custom: {
@@ -58,6 +92,11 @@ class BaseScene extends Phaser.Scene {
     });
   }
 
+  /**
+   * Load all images.
+   *
+   * @return {void} Nothing is returned.
+   */
   loadImages() {
     this.load.image('red', 'https://labs.phaser.io/assets/particles/red.png');
     this.load.image('main_menu', 'src/assets/images/backgrounds/main-menu.png');
@@ -68,6 +107,11 @@ class BaseScene extends Phaser.Scene {
     this.load.image('score', 'src/assets/images/ui/score.png');
   }
 
+  /**
+   * Load all sounds.
+   *
+   * @return {void} Nothing is returned.
+   */
   loadSounds() {
     this.load.audio('game_music', 'src/assets/sounds/music/game.mp3');
     this.load.audio('game_over_music', 'src/assets/sounds/music/game-over.mp3');
@@ -76,15 +120,25 @@ class BaseScene extends Phaser.Scene {
     this.load.audio('explosion_sfx', 'src/assets/sounds/sfx/explosion.wav');
   }
 
+  /**
+   * Load all buttons.
+   *
+   * @return {void} Nothing is returned.
+   */
   loadButtons() {
-    for (const button_state of BUTTON_STATES) {
+    for (const buttonState of BUTTON_STATES) {
       this.load.image(
-        `${button_state}_button`,
-        `src/assets/images/buttons/${button_state}.png`,
+        `${buttonState}_button`,
+        `src/assets/images/buttons/${buttonState}.png`,
       );
     }
   }
 
+  /**
+   * A callback function for when the button is pressed. Switches over to the game scene.
+   *
+   * @return {void} Nothing is returned.
+   */
   callback() {
     this.scene.start('GameScene');
 
@@ -93,6 +147,13 @@ class BaseScene extends Phaser.Scene {
     }
   }
 
+  /**
+   * Instantiates button object inside of the current scene.
+   *
+   * @param {*} scene - The current scene.
+   * @param {*} buttonText - The button's text.
+   * @return {void} Nothing is returned.
+   */
   createButton(scene, buttonText) {
     const text = scene.add.text(CENTRE_X, CENTRE_Y, buttonText, {
       fontFamily: 'GameOver',
@@ -114,6 +175,12 @@ class BaseScene extends Phaser.Scene {
     );
   }
 
+  /**
+   * Preloads any resources. Normally this function is utilized for
+   * optimization.
+   *
+   * @return {void} Nothing is being returned.
+   */
   preload() {
     this.loadFonts();
     this.loadImages();

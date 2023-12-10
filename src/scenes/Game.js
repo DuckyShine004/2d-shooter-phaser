@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 class GameScene extends BaseScene {
   /**
-   * Initialization of the main scene.
+   * Initialization of the game scene.
    *
    * @return {void} Nothing is being returned.
    */
@@ -11,11 +11,22 @@ class GameScene extends BaseScene {
     this.elapsedTime = 0;
   }
 
+  /**
+   * This is a callback function. When the player dies, switch to game over scene and stop
+   * all music.
+   *
+   * @return {void} Nothing is returned.
+   */
   onPlayerDeath() {
     this.scene.start('GameOverScene');
     this.sound.stopAll();
   }
 
+  /**
+   * Initializes the player's health bar.
+   *
+   * @return {void} Nothing is returned.
+   */
   initializeHealthBar() {
     this.healthImg = this.add.image(HEALTH_X, HEALTH_Y, 'health');
     this.healthImg.setOrigin(0, 0);
@@ -26,6 +37,11 @@ class GameScene extends BaseScene {
     this.healthBarImg.setScale(BAR_SCALE_X, BAR_SCALE_Y);
   }
 
+  /**
+   * Initializes score elements.
+   *
+   * @return {void} Nothing is returned.
+   */
   initializeScoreDisplay() {
     this.scoreImg = this.add.image(SCORE_X, SCORE_Y, 'score').setOrigin(0, 0);
     this.scoreImg.setScale(BAR_SCALE_X, BAR_SCALE_Y);
@@ -38,14 +54,18 @@ class GameScene extends BaseScene {
     this.score.setOrigin(1, 0);
   }
 
+  /**
+   * Initializes graphical user interface elements.
+   *
+   * @return {void} Nothing is returned.
+   */
   initializeGUI() {
     this.initializeHealthBar();
     this.initializeScoreDisplay();
   }
 
   /**
-   * Preloads any resources. Normally this function is utilized for
-   * optimization.
+   * Preloads any resources. Normally this function is utilized for optimization.
    *
    * @return {void} Nothing is being returned.
    */
@@ -53,6 +73,11 @@ class GameScene extends BaseScene {
     super.preload();
   }
 
+  /**
+   * Handle object collisions. Player and enemies, and enemies and bullets.
+   *
+   * @return {void} Nothing is returned.
+   */
   handleCollisions() {
     this.physics.add.overlap(
       this.entityManager.enemies,
@@ -93,7 +118,9 @@ class GameScene extends BaseScene {
 
   /**
    * Updates and renders the scene.
-   *@param {number} time - The time elapsed.
+   *
+   * @param {number} time - The time elapsed.
+   * @param {number} delta - The time between each frame.
    * @return {void} Nothing is being returned.
    */
   update(time, delta) {
