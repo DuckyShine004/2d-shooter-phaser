@@ -6,9 +6,8 @@ class Bullet extends Entity {
    * @param {Object} scene - The game's current scene.
    * @param {number} x - The x coordinate of the bullet.
    * @param {number} y - The y coordinate of the bullet.
-   * @param {number} mouseX - The x coordinate of the mouse.
-   * @param {number} mouseY - The y coordinate of the mouse.
-   * @param {Function} removeBullet - Callback remove bullet object function.
+   * @param {Object} mouse - The mouse object.
+   * @param {Object} entityManager - The entity manager.
    * @param {number} radius - The radius of the bullet object.
    * @param {number} color - The color of the bullet.
    * @return {void} Nothing is returned.
@@ -33,6 +32,11 @@ class Bullet extends Entity {
     });
   }
 
+  /**
+   * Checks whether the bullet is out of bounds or not.
+   *
+   * @return {boolean} The result of checking if bullet is out of bounds.
+   */
   isOutOfBounds() {
     return (
       this.x < this.bounds.left ||

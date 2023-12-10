@@ -1,13 +1,29 @@
 // eslint-disable-next-line no-unused-vars
 class MenuScene extends BaseScene {
+  /**
+   * Initialization of the menu scene.
+   *
+   * @return {void} Nothing is being returned.
+   */
   constructor() {
     super('MenuScene');
   }
 
+  /**
+   * Preloads any resources. Normally this function is utilized for
+   * optimization.
+   *
+   * @return {void} Nothing is being returned.
+   */
   preload() {
     super.preload();
   }
 
+  /**
+   * Create and render game objects to the scene.
+   *
+   * @return {void} Nothing is being returned.
+   */
   create() {
     this.initializeUI(this, 'default', 'main_menu', false, 'PLAY');
 
