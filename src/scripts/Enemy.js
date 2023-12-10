@@ -1,18 +1,9 @@
 // eslint-disable-next-line no-unused-vars
-class Enemy extends Phaser.GameObjects.Ellipse {
+class Enemy extends Entity {
   constructor(scene, x, y, entityManager, radius, color) {
-    super(scene, x, y, radius, radius, color);
+    super(scene, x, y, radius, color, 0, 3, false, entityManager);
 
     this.speed = ENEMY_SPEED_DIFFERENCE * Math.random() + ENEMY_LOWER_SPEED_LIMIT;
-    this.radius = radius;
-
-    this.entityManager = entityManager;
-    this.scene = scene;
-
-    scene.add.existing(this);
-    scene.physics.add.existing(this);
-
-    this.setStrokeStyle(3, 0x000000);
   }
 
   handleBulletCollision(scene, enemy, bullet) {
