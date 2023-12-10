@@ -68,6 +68,18 @@ class BaseScene extends Phaser.Scene {
     );
   }
 
+  initializeKeyInputs(scene) {
+    this.keys = this.input.keyboard.addKeys({
+      up: 'W',
+      down: 'S',
+      left: 'A',
+      right: 'D',
+    });
+
+    this.cursors = this.input.keyboard.createCursorKeys();
+    this.mouse = this.input.activePointer;
+  }
+
   initializeMusic(musicKey) {
     this.music = this.sound.add(musicKey, {
       loop: true,
@@ -76,15 +88,27 @@ class BaseScene extends Phaser.Scene {
     this.music.play();
   }
 
-  initializeUI(scene, cursorKey, backgroundKey = null) {
+  initializeUI(scene, cursorKey, backgroundKey = null, isCrosshair = false) {
     this.input.setDefaultCursor(cursorKey);
-    this.createButton(scene);
+
+    if (isCrosshair) {
+      this.crosshairImg = this.add.image(0, 0, 'crosshair');
+      this.crosshairImg.depth = 1000;
+
+      this.input.on('pointermove', (pointer) => {
+        this.crosshairImg.setPosition(pointer.x, pointer.y);
+      });
+    }
 
     if (backgroundKey) {
+      this.createButton(scene);
+
       var backgroundImg = scene.add.image(0, 0, backgroundKey).setOrigin(0, 0);
 
       backgroundImg.displayWidth = WINDOW_WIDTH;
       backgroundImg.displayHeight = WINDOW_HEIGHT;
+    } else {
+      Utility.getBackground(scene);
     }
   }
 }

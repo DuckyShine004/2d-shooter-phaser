@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-class GameScene extends Phaser.Scene {
+class GameScene extends BaseScene {
   /**
    * Initialization of the main scene.
    *
@@ -11,46 +11,12 @@ class GameScene extends Phaser.Scene {
     this.elapsedTime = 0;
   }
 
-  initializeGame() {
-    this.elapsedTime = 0;
-
-    this.initializeInputs();
-    this.initializeSounds();
-    this.initializeUI();
+  onPlayerDeath() {
+    this.scene.start('GameOverScene');
+    this.sound.stopAll();
   }
 
-  initializeInputs() {
-    this.input.setDefaultCursor('none');
-
-    this.crosshairImg = this.add.image(0, 0, 'crosshair');
-    this.crosshairImg.depth = 1000;
-
-    this.input.on('pointermove', (pointer) => {
-      this.crosshairImg.setPosition(pointer.x, pointer.y);
-    });
-
-    this.keys = this.input.keyboard.addKeys({
-      up: 'W',
-      down: 'S',
-      left: 'A',
-      right: 'D',
-    });
-
-    this.cursors = this.input.keyboard.createCursorKeys();
-    this.mouse = this.input.activePointer;
-  }
-
-  initializeSounds() {
-    this.gameMusic = this.sound.add('game_music', {
-      loop: true,
-    });
-
-    this.gameMusic.play();
-
-    this.sound.add('hit_sfx');
-  }
-
-  initializeUI() {
+  initializeGUI() {
     this.healthImg = this.add.image(HEALTH_X, HEALTH_Y, 'health').setOrigin(0, 0);
 
     this.healthBarImg = this.add
@@ -83,22 +49,6 @@ class GameScene extends Phaser.Scene {
     bullet.particles.destroy();
   }
 
-  handlePlayerEnemyCollision(player, enemy) {
-    this.sound.play('hit_sfx');
-    player.health--;
-
-    if (!player.health) {
-      this.scene.start('GameOverScene');
-      this.gameMusic.stop();
-    }
-
-    enemy.destroy();
-    enemy.removeEnemy(enemy);
-
-    const ratio = player.health / PLAYER_HEALTH;
-    this.healthBarImg.displayWidth = Math.max(ratio * HEALTH_BAR_WIDTH);
-  }
-
   /**
    * Preloads any resources. Normally this function is utilized for
    * optimization.
@@ -106,7 +56,7 @@ class GameScene extends Phaser.Scene {
    * @return {void} Nothing is being returned.
    */
   preload() {
-    Utility.getBackground(this);
+    super.preload();
   }
 
   /**
@@ -115,9 +65,24 @@ class GameScene extends Phaser.Scene {
    * @return {void} Nothing is being returned.
    */
   create() {
-    this.initializeGame();
+    this.elapsedTime = 0;
 
-    this.player = new Player(this, 400, 400, 60, 0x77c3ec);
+    this.initializeKeyInputs(this);
+    this.initializeMusic('game_music');
+    this.initializeUI(this, 'none', null, true);
+    this.initializeGUI();
+
+    console.log(this.scene);
+    this.entityManager = new EntityManager(this);
+    this.player = new Player(
+      this,
+      400,
+      400,
+      60,
+      0x77c3ec,
+      this.onPlayerDeath.bind(this),
+      this.entityManager,
+    );
   }
 
   /**
@@ -128,6 +93,7 @@ class GameScene extends Phaser.Scene {
   update(time, delta) {
     this.elapsedTime += delta;
 
+    this.entityManager.update(this.player, this.elapsedTime);
     this.player.update(this.keys, this.cursors, this.mouse, this.elapsedTime);
 
     this.physics.add.overlap(
@@ -140,8 +106,8 @@ class GameScene extends Phaser.Scene {
 
     this.physics.add.overlap(
       this.player,
-      this.player.enemies,
-      this.handlePlayerEnemyCollision,
+      this.entityManager.enemies,
+      this.player.handleEnemyCollision.bind(this.player),
       null,
       this,
     );

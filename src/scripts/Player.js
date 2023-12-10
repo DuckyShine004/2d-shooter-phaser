@@ -10,7 +10,7 @@ class Player extends Phaser.GameObjects.Ellipse {
    * @param {number} color - The color of the player.
    * @return {void} Nothing is returned.
    */
-  constructor(scene, x, y, radius, color) {
+  constructor(scene, x, y, radius, color, onPlayerDeath, entityManager) {
     super(scene, x, y, radius, radius, color);
 
     this.speed = 300;
@@ -18,8 +18,13 @@ class Player extends Phaser.GameObjects.Ellipse {
     this.mousePressed = false;
     this.lastEnemySpawnTime = 0;
 
+    this.onPlayerDeath = onPlayerDeath;
+    this.entityManager = entityManager;
+
     this.bullets = [];
     this.enemies = [];
+
+    this.scene = scene;
 
     this.arm = scene.add.circle(this.x, this.y, 15, 0x2a2a2a);
     this.arm.setStrokeStyle(2, 0x000000);
@@ -34,30 +39,18 @@ class Player extends Phaser.GameObjects.Ellipse {
     this.score = 0;
   }
 
-  spawnEnemy(time) {
-    this.lastEnemySpawnTime = time;
+  handleEnemyCollision(player, enemy) {
+    this.scene.sound.play('hit_sfx');
+    this.health--;
 
-    let x;
-    let y;
-
-    const horizontalEdge = Math.random() < 0.5;
-
-    if (horizontalEdge) {
-      x = WINDOW_WIDTH * Math.random();
-      y = Math.random() < 0.5 ? 0 : WINDOW_HEIGHT;
-    } else {
-      x = Math.random() < 0.5 ? 0 : WINDOW_WIDTH;
-      y = WINDOW_HEIGHT * Math.random();
+    if (!this.health) {
+      this.onPlayerDeath();
     }
 
-    this.enemies.push(
-      new Enemy(this.scene, x, y, this.removeEnemy.bind(this), 60, 0xff1d18),
-    );
-  }
+    this.entityManager.removeEnemy(enemy);
 
-  removeEnemy(enemy) {
-    this.enemies = this.enemies.filter((e) => e !== enemy);
-    enemy.destroy();
+    const ratio = this.health / PLAYER_HEALTH;
+    this.scene.healthBarImg.displayWidth = Math.max(ratio * HEALTH_BAR_WIDTH);
   }
 
   /**
@@ -102,7 +95,6 @@ class Player extends Phaser.GameObjects.Ellipse {
     this.body.setVelocityY(this.speed * vy * normalization);
 
     this.updateArm(mouse);
-    this.updateEnemies(time);
     this.updateBullets(mouse);
   }
 
@@ -152,18 +144,6 @@ class Player extends Phaser.GameObjects.Ellipse {
 
     for (const bullet of [...this.bullets]) {
       bullet.update();
-    }
-  }
-
-  updateEnemies(time) {
-    const spawnRate = Utility.getSpawnRate(time / 1000);
-
-    if (time - this.lastEnemySpawnTime > spawnRate) {
-      this.spawnEnemy(time);
-    }
-
-    for (const enemy of [...this.enemies]) {
-      enemy.update(this);
     }
   }
 }
