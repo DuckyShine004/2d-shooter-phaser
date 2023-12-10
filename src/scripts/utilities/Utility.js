@@ -1,5 +1,11 @@
 // eslint-disable-next-line no-unused-vars
 class Utility {
+  /**
+   * Creates a background for the game scene.
+   *
+   * @param {*} scene - The current scene.
+   * @return {void} Nothing is being returned.
+   */
   static getBackground(scene) {
     for (let y = 0; y < WINDOW_HEIGHT; y += GRID_SIZE) {
       for (let x = 0; x < WINDOW_WIDTH; x += GRID_SIZE) {
@@ -64,6 +70,12 @@ class Utility {
     return this.checkNonZeroComponents(x, y) ? 1 / this.getMagnitude(x, y) : 0;
   }
 
+  /**
+   * Get the next time when the enemy should spawn again.
+   *
+   * @param {*} t - The total time elapsed.
+   * @return {number} The time when the next enemy should spawn.
+   */
   static getSpawnRate(t) {
     const rate = ENEMY_INITIAL_SPAWN_RATE * Math.exp(ENEMY_SPAWN_RATE_COEFFICENT * t);
 
