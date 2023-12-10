@@ -156,7 +156,9 @@ class Player extends Phaser.GameObjects.Ellipse {
   }
 
   updateEnemies(time) {
-    if (time - this.lastEnemySpawnTime > 2000) {
+    const spawnRate = Utility.getSpawnRate(time / 1000);
+
+    if (time - this.lastEnemySpawnTime > spawnRate) {
       this.spawnEnemy(time);
     }
 
