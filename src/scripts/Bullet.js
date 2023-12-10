@@ -42,6 +42,15 @@ class Bullet extends Phaser.GameObjects.Ellipse {
     this.setStrokeStyle(2, 0x000000);
   }
 
+  isOutOfBounds() {
+    return (
+      this.x < this.bounds.left ||
+      this.y < this.bounds.top ||
+      this.x > this.bounds.right ||
+      this.y > this.bounds.bottom
+    );
+  }
+
   /**
    * Updates the bullet.
    *
@@ -51,12 +60,7 @@ class Bullet extends Phaser.GameObjects.Ellipse {
     this.body.setVelocityX(this.speed * this.dx * this.normalization);
     this.body.setVelocityY(this.speed * this.dy * this.normalization);
 
-    if (
-      this.x < this.bounds.left ||
-      this.y < this.bounds.top ||
-      this.x > this.bounds.right ||
-      this.y > this.bounds.bottom
-    ) {
+    if (this.isOutOfBounds()) {
       this.entityManager.removeBullet(this);
     }
   }

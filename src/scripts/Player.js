@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-class Player extends Phaser.GameObjects.Ellipse {
+class Player extends Entity {
   /**
    * Initialization of the player object.
    *
@@ -11,29 +11,19 @@ class Player extends Phaser.GameObjects.Ellipse {
    * @return {void} Nothing is returned.
    */
   constructor(scene, x, y, radius, color, onPlayerDeath, entityManager) {
-    super(scene, x, y, radius, radius, color);
-
-    this.speed = 300;
-    this.radius = radius;
-    this.mousePressed = false;
-    this.lastEnemySpawnTime = 0;
+    super(scene, x, y, radius, color, PLAYER_SPEED, 3, true, entityManager);
 
     this.onPlayerDeath = onPlayerDeath;
-    this.entityManager = entityManager;
-
-    this.scene = scene;
-
-    this.arm = scene.add.circle(this.x, this.y, 15, 0x2a2a2a);
-    this.arm.setStrokeStyle(2, 0x000000);
-
-    scene.add.existing(this);
-    scene.physics.add.existing(this);
-
-    this.setStrokeStyle(3, 0x000000);
-    this.body.setCollideWorldBounds(true);
 
     this.health = PLAYER_HEALTH;
+
+    this.mousePressed = false;
+
     this.score = 0;
+    this.lastEnemySpawnTime = 0;
+
+    this.arm = scene.add.circle(x, y, ARM_SIZE, GREY);
+    this.arm.setStrokeStyle(2, BLACK);
   }
 
   handleEnemyCollision(player, enemy) {
@@ -59,7 +49,9 @@ class Player extends Phaser.GameObjects.Ellipse {
    * @param {number} time - The time elapsed.
    * @return {void} Nothing is returned.
    */
-  update(keys, cursors, mouse, time) {
+  update(keys, cursors, mouse) {
+    this.shootBullet(mouse);
+
     let vx = 0;
     let vy = 0;
 
@@ -81,7 +73,6 @@ class Player extends Phaser.GameObjects.Ellipse {
     this.body.setVelocityY(this.speed * vy * normalization);
 
     this.updateArm(mouse);
-    this.updateBullets(mouse);
   }
 
   /**
@@ -105,19 +96,9 @@ class Player extends Phaser.GameObjects.Ellipse {
    * @param {Object} mouse - The mouse input.
    * @return {void} Nothing is returned.
    */
-  updateBullets(mouse) {
+  shootBullet(mouse) {
     if (mouse.leftButtonDown() && !this.mousePressed) {
-      this.entityManager.addBullet(
-        new Bullet(
-          this.scene,
-          this.arm.x,
-          this.arm.y,
-          mouse,
-          this.entityManager,
-          10,
-          0xffea00,
-        ),
-      );
+      this.entityManager.addBullet(this.arm.x, this.arm.y, mouse);
 
       this.mousePressed = true;
       this.scene.sound.play('shoot_sfx');

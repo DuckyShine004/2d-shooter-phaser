@@ -3,6 +3,13 @@ const BUTTON_STATES = ['normal', 'hover', 'click'];
 
 const PLAYER_HEALTH = 3;
 
+const ARM_SIZE = 15;
+const PLAYER_SIZE = 60;
+const ENEMY_SIZE = 60;
+const BULLET_SIZE = 10;
+
+const PLAYER_SPEED = 300;
+
 const SCORE_INCREMENT = 10;
 
 const ENEMY_SPAWN_RATE_LIMIT = 500;

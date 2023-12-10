@@ -16,17 +16,18 @@ class GameScene extends BaseScene {
     this.sound.stopAll();
   }
 
-  initializeGUI() {
+  initializeHealthBar() {
     this.healthImg = this.add.image(HEALTH_X, HEALTH_Y, 'health').setOrigin(0, 0);
-
     this.healthBarImg = this.add
       .image(HEALTH_BAR_X, HEALTH_BAR_Y, 'health_bar')
       .setOrigin(0, 0);
 
-    this.scoreImg = this.add.image(SCORE_X, SCORE_Y, 'score').setOrigin(0, 0);
-
     this.healthImg.setScale(BAR_SCALE_X, BAR_SCALE_Y);
     this.healthBarImg.setScale(BAR_SCALE_X, BAR_SCALE_Y);
+  }
+
+  initializeScoreDisplay() {
+    this.scoreImg = this.add.image(SCORE_X, SCORE_Y, 'score').setOrigin(0, 0);
     this.scoreImg.setScale(BAR_SCALE_X, BAR_SCALE_Y);
 
     this.score = this.add
@@ -35,6 +36,11 @@ class GameScene extends BaseScene {
         align: 'left',
       })
       .setOrigin(1, 0);
+  }
+
+  initializeGUI() {
+    this.initializeHealthBar();
+    this.initializeScoreDisplay();
   }
 
   /**
@@ -81,7 +87,7 @@ class GameScene extends BaseScene {
     this.elapsedTime += delta;
 
     this.entityManager.update(this.player, this.elapsedTime);
-    this.player.update(this.keys, this.cursors, this.mouse, this.elapsedTime);
+    this.player.update(this.keys, this.cursors, this.mouse);
 
     this.physics.add.overlap(
       this.entityManager.enemies,

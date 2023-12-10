@@ -36,8 +36,8 @@ class EntityManager {
     enemy.destroy();
   }
 
-  addBullet(bullet) {
-    this.bullets.push(bullet);
+  addBullet(x, y, mouse) {
+    this.bullets.push(new Bullet(this.scene, x, y, mouse, this, BULLET_SIZE, YELLOW));
   }
 
   removeBullet(bullet) {
