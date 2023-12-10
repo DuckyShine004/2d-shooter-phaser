@@ -8,7 +8,7 @@ class GameOverScene extends BaseScene {
   }
 
   create() {
-    this.initializeMusic();
+    this.initializeMusic('game_over_music');
     this.initializeUI(this, 'default', 'game_over');
 
     this.time.delayedCall(

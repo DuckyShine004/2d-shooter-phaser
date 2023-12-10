@@ -68,8 +68,8 @@ class BaseScene extends Phaser.Scene {
     );
   }
 
-  initializeMusic() {
-    this.music = this.sound.add('game_over_music', {
+  initializeMusic(musicKey) {
+    this.music = this.sound.add(musicKey, {
       loop: true,
     });
 
