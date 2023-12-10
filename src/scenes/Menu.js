@@ -1,44 +1,22 @@
 // eslint-disable-next-line no-unused-vars
-class MenuScene extends Phaser.Scene {
+class MenuScene extends BaseScene {
   constructor() {
     super('MenuScene');
-
-    this.buttons = ['play'];
-    this.states = ['normal', 'hover', 'click'];
-
-    this.buttonX = WINDOW_WIDTH / 2;
-    this.buttonY = WINDOW_HEIGHT / 2;
   }
 
   preload() {
-    this.load.image('main_menu', 'src/assets/images/backgrounds/main-menu.png');
-
-    for (const button of this.buttons) {
-      for (const state of this.states) {
-        this.load.image(
-          `${button}_${state}_button`,
-          `src/assets/images/buttons/${button}_${state}.png`,
-        );
-      }
-    }
+    super.preload();
   }
 
   create() {
-    const backgroundImg = this.add.image(0, 0, 'main_menu').setOrigin(0, 0);
+    this.initializeUI(this, 'default', 'main_menu');
 
-    backgroundImg.displayWidth = WINDOW_WIDTH;
-    backgroundImg.displayHeight = WINDOW_HEIGHT;
+    const text = this.add.text(TITLE_X, TITLE_Y, 'Main Menu', {
+      fontFamily: 'GameOver',
+      fontSize: TITLE_SIZE,
+      fill: '#000000',
+    });
 
-    new Button(
-      this,
-      this.buttonX,
-      this.buttonY,
-      'play_normal_button',
-      'play_hover_button',
-      'play_click_button',
-      () => {
-        this.scene.start('GameScene');
-      },
-    );
+    text.setOrigin(0.5, 0.5);
   }
 }

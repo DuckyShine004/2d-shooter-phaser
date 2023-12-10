@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-class Bullet extends Phaser.GameObjects.Ellipse {
+class Bullet extends Entity {
   /**
    * Initialization of the bullet object.
    *
@@ -13,21 +13,17 @@ class Bullet extends Phaser.GameObjects.Ellipse {
    * @param {number} color - The color of the bullet.
    * @return {void} Nothing is returned.
    */
-  constructor(scene, x, y, mouseX, mouseY, removeBullet, radius, color) {
-    super(scene, x, y, radius, radius, color);
+  constructor(scene, x, y, mouse, entityManager, radius, color) {
+    super(scene, x, y, radius, color, BULLET_SPEED, 2, false, entityManager);
 
-    this.speed = 800;
-    this.radius = radius;
     this.bounds = scene.physics.world.bounds;
 
-    this.theta = Utility.getTheta(this.x, mouseX, this.y, mouseY);
+    this.theta = Utility.getTheta(this.x, mouse.x, this.y, mouse.y);
 
     this.dx = radius * Math.cos(this.theta);
     this.dy = radius * Math.sin(this.theta);
 
     this.normalization = Utility.getNormalization(this.dx, this.dy);
-
-    this.removeBullet = removeBullet;
 
     this.particles = scene.add.particles(0, 0, 'red', {
       speed: 100,
@@ -35,11 +31,15 @@ class Bullet extends Phaser.GameObjects.Ellipse {
       blendMode: 'ADD',
       follow: this,
     });
+  }
 
-    scene.add.existing(this);
-    scene.physics.add.existing(this);
-
-    this.setStrokeStyle(2, 0x000000);
+  isOutOfBounds() {
+    return (
+      this.x < this.bounds.left ||
+      this.y < this.bounds.top ||
+      this.x > this.bounds.right ||
+      this.y > this.bounds.bottom
+    );
   }
 
   /**
@@ -51,15 +51,8 @@ class Bullet extends Phaser.GameObjects.Ellipse {
     this.body.setVelocityX(this.speed * this.dx * this.normalization);
     this.body.setVelocityY(this.speed * this.dy * this.normalization);
 
-    if (
-      this.x < this.bounds.left ||
-      this.y < this.bounds.top ||
-      this.x > this.bounds.right ||
-      this.y > this.bounds.bottom
-    ) {
-      this.removeBullet(this);
-      this.destroy();
-      this.particles.destroy();
+    if (this.isOutOfBounds()) {
+      this.entityManager.removeBullet(this);
     }
   }
 }

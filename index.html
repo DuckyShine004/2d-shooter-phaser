@@ -4,16 +4,20 @@
     <meta charset="UTF-8" />
     <title>2D Shooter Game</title>
     <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
-    <div style="font-family: 'GameOver'; visibility: hidden">.</div>
   </head>
   <body>
     <script src="https://cdn.jsdelivr.net/npm/phaser@3/dist/phaser.min.js"></script>
-    <script src="src/scripts/constants/constant.js"></script>
-    <script src="src/scripts/Player.js"></script>
-    <script src="src/scripts/Enemy.js"></script>
-    <script src="src/scripts/Button.js"></script>
-    <script src="src/scripts/Bullet.js"></script>
-    <script src="src/scripts/Utility.js"></script>
+    <script src="src/scripts/constants/constants.js"></script>
+    <script src="src/scripts/constants/colorConstants.js"></script>
+    <script src="src/scripts/constants/uiConstants.js"></script>
+    <script src="src/scripts/ui/Button.js"></script>
+    <script src="src/scripts/managers/EntityManager.js"></script>
+    <script src="src/scripts/entities/Entity.js"></script>
+    <script src="src/scripts/entities/Player.js"></script>
+    <script src="src/scripts/entities/Enemy.js"></script>
+    <script src="src/scripts/entities/Bullet.js"></script>
+    <script src="src/scripts/utilities/Utility.js"></script>
+    <script src="src/scenes/Base.js"></script>
     <script src="src/scenes/Menu.js"></script>
     <script src="src/scenes/Game.js"></script>
     <script src="src/scenes/GameOver.js"></script>

@@ -1,20 +1,15 @@
 // eslint-disable-next-line no-unused-vars
 class Utility {
   static getBackground(scene) {
-    const color1 = 0x05f29b;
-    const color2 = 0x037f51;
-
-    const size = 100;
-
-    for (let y = 0; y < WINDOW_HEIGHT; y += size) {
-      for (let x = 0; x < WINDOW_WIDTH; x += size) {
-        const dx = x / size;
-        const dy = y / size;
+    for (let y = 0; y < WINDOW_HEIGHT; y += GRID_SIZE) {
+      for (let x = 0; x < WINDOW_WIDTH; x += GRID_SIZE) {
+        const dx = x / GRID_SIZE;
+        const dy = y / GRID_SIZE;
 
         if ((dx + dy) & 1) {
-          scene.add.rectangle(x, y, size, size, color1).setOrigin(0, 0);
+          scene.add.rectangle(x, y, GRID_SIZE, GRID_SIZE, GREEN).setOrigin(0, 0);
         } else {
-          scene.add.rectangle(x, y, size, size, color2).setOrigin(0, 0);
+          scene.add.rectangle(x, y, GRID_SIZE, GRID_SIZE, DARK_GREEN).setOrigin(0, 0);
         }
       }
     }

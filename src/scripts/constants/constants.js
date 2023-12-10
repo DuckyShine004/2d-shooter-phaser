@@ -1,0 +1,23 @@
+/* eslint-disable no-unused-vars */
+const BUTTON_STATES = ['normal', 'hover', 'click'];
+
+const PLAYER_HEALTH = 3;
+
+const ARM_SIZE = 15;
+const ENEMY_SIZE = 60;
+const PLAYER_SIZE = 60;
+const BULLET_SIZE = 10;
+
+const PLAYER_SPEED = 300;
+const BULLET_SPEED = 800;
+
+const SCORE_INCREMENT = 10;
+
+const ENEMY_SPAWN_RATE_LIMIT = 500;
+const ENEMY_INITIAL_SPAWN_RATE = 5000;
+
+const ENEMY_SPAWN_RATE_COEFFICENT = -0.025;
+
+const ENEMY_LOWER_SPEED_LIMIT = 300;
+const ENEMY_UPPER_SPEED_LIMIT = 600;
+const ENEMY_SPEED_DIFFERENCE = ENEMY_UPPER_SPEED_LIMIT - ENEMY_LOWER_SPEED_LIMIT;
