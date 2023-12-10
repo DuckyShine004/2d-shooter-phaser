@@ -24,7 +24,7 @@ class EntityManager {
       y = WINDOW_HEIGHT * Math.random();
     }
 
-    this.addEnemy(new Enemy(this.scene, x, y, this.removeEnemy.bind(this), 60, 0xff1d18));
+    this.addEnemy(new Enemy(this.scene, x, y, this, 60, 0xff1d18));
   }
 
   addEnemy(enemy) {
@@ -42,18 +42,19 @@ class EntityManager {
 
   removeBullet(bullet) {
     this.bullets = this.bullets.filter((b) => b !== bullet);
+
     bullet.destroy();
+    bullet.particles.destroy();
   }
 
   update(player, time) {
-    this.bullets.forEach((bullet) => bullet.update());
-
     const spawnRate = Utility.getSpawnRate(time / 1000);
 
     if (time - this.lastEnemySpawnTime > spawnRate) {
       this.spawnEnemy(time);
     }
 
+    this.bullets.forEach((bullet) => bullet.update());
     this.enemies.forEach((enemy) => enemy.update(player));
   }
 }

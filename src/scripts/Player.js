@@ -21,9 +21,6 @@ class Player extends Phaser.GameObjects.Ellipse {
     this.onPlayerDeath = onPlayerDeath;
     this.entityManager = entityManager;
 
-    this.bullets = [];
-    this.enemies = [];
-
     this.scene = scene;
 
     this.arm = scene.add.circle(this.x, this.y, 15, 0x2a2a2a);
@@ -51,17 +48,6 @@ class Player extends Phaser.GameObjects.Ellipse {
 
     const ratio = this.health / PLAYER_HEALTH;
     this.scene.healthBarImg.displayWidth = Math.max(ratio * HEALTH_BAR_WIDTH);
-  }
-
-  /**
-   * Removes the bullet for the list of bullets.
-   *
-   * @param {Object} bullet - The bullet to be removed from the list.
-   * @return {void} Nothing is returned.
-   */
-  removeBullet(bullet) {
-    this.bullets = this.bullets.filter((b) => b !== bullet);
-    bullet.destroy();
   }
 
   /**
@@ -121,14 +107,13 @@ class Player extends Phaser.GameObjects.Ellipse {
    */
   updateBullets(mouse) {
     if (mouse.leftButtonDown() && !this.mousePressed) {
-      this.bullets.push(
+      this.entityManager.addBullet(
         new Bullet(
           this.scene,
           this.arm.x,
           this.arm.y,
-          mouse.x,
-          mouse.y,
-          this.removeBullet.bind(this),
+          mouse,
+          this.entityManager,
           10,
           0xffea00,
         ),
@@ -140,10 +125,6 @@ class Player extends Phaser.GameObjects.Ellipse {
 
     if (mouse.leftButtonReleased() && this.mousePressed) {
       this.mousePressed = false;
-    }
-
-    for (const bullet of [...this.bullets]) {
-      bullet.update();
     }
   }
 }

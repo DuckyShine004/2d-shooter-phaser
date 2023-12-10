@@ -37,18 +37,6 @@ class GameScene extends BaseScene {
       .setOrigin(1, 0);
   }
 
-  handleBulletEnemyCollision(bullet, enemy) {
-    this.sound.play('explosion_sfx');
-
-    bullet.removeBullet(bullet);
-    enemy.removeEnemy(enemy);
-
-    this.player.score += SCORE_INCREMENT;
-    this.score.text = this.player.score.toString();
-
-    bullet.particles.destroy();
-  }
-
   /**
    * Preloads any resources. Normally this function is utilized for
    * optimization.
@@ -72,7 +60,6 @@ class GameScene extends BaseScene {
     this.initializeUI(this, 'none', null, true);
     this.initializeGUI();
 
-    console.log(this.scene);
     this.entityManager = new EntityManager(this);
     this.player = new Player(
       this,
@@ -97,19 +84,13 @@ class GameScene extends BaseScene {
     this.player.update(this.keys, this.cursors, this.mouse, this.elapsedTime);
 
     this.physics.add.overlap(
-      this.player.bullets,
-      this.player.enemies,
-      this.handleBulletEnemyCollision,
-      null,
-      this,
+      this.entityManager.enemies,
+      this.entityManager.bullets,
+      (enemy, bullet) => enemy.handleBulletCollision(this, enemy, bullet),
     );
 
-    this.physics.add.overlap(
-      this.player,
-      this.entityManager.enemies,
-      this.player.handleEnemyCollision.bind(this.player),
-      null,
-      this,
+    this.physics.add.overlap(this.player, this.entityManager.enemies, (player, enemy) =>
+      player.handleEnemyCollision(player, enemy),
     );
   }
 }
