@@ -1,34 +1,15 @@
 /* eslint-disable no-unused-vars */
-const WINDOW_WIDTH = 1400;
-const WINDOW_HEIGHT = 1000;
-
-const HEALTH_X = 10;
-const HEALTH_Y = 10;
-
-const HEALTH_BAR_X = 85;
-const HEALTH_BAR_Y = 25;
-
-const SCORE_X = 10;
-const SCORE_Y = 75;
-
-const SCORE_TEXT_X = 180;
-const SCORE_TEXT_Y = 87;
-
-const BAR_SCALE_X = 1.5;
-const BAR_SCALE_Y = 1.25;
-
-const HEALTH_BAR_WIDTH = 132 * BAR_SCALE_X;
-
 const BUTTON_STATES = ['normal', 'hover', 'click'];
 
-const BUTTON_X = WINDOW_WIDTH / 2;
-const BUTTON_Y = WINDOW_HEIGHT / 2;
-
 const PLAYER_HEALTH = 3;
+
 const SCORE_INCREMENT = 10;
+
 const ENEMY_SPAWN_RATE_LIMIT = 500;
 const ENEMY_INITIAL_SPAWN_RATE = 5000;
+
 const ENEMY_SPAWN_RATE_COEFFICENT = -0.025;
+
 const ENEMY_LOWER_SPEED_LIMIT = 300;
 const ENEMY_UPPER_SPEED_LIMIT = 600;
 const ENEMY_SPEED_DIFFERENCE = ENEMY_UPPER_SPEED_LIMIT - ENEMY_LOWER_SPEED_LIMIT;

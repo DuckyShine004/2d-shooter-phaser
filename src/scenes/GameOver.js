@@ -12,9 +12,9 @@ class GameOverScene extends BaseScene {
     this.initializeUI(this, 'default', 'game_over');
 
     this.add
-      .text(WINDOW_WIDTH * 0.5, WINDOW_HEIGHT * 0.2, 'Game Over', {
+      .text(TITLE_X, TITLE_Y, 'Game Over', {
         fontFamily: 'GameOver',
-        fontSize: '60px',
+        fontSize: TITLE_SIZE,
         fill: '#ffffff',
       })
       .setOrigin(0.5, 0.5);
