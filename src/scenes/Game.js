@@ -85,6 +85,7 @@ class GameScene extends Phaser.Scene {
 
     if (!player.health) {
       this.scene.start('GameOverScene');
+      this.gameMusic.stop();
     }
 
     enemy.destroy();

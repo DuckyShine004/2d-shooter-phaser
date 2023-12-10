@@ -1,6 +1,12 @@
 class GameOverScene extends Phaser.Scene {
   constructor() {
     super('GameOverScene');
+
+    this.buttons = ['play'];
+    this.states = ['normal', 'hover', 'click'];
+
+    this.buttonX = WINDOW_WIDTH / 2;
+    this.buttonY = WINDOW_HEIGHT / 2;
   }
 
   preload() {
@@ -9,15 +15,23 @@ class GameOverScene extends Phaser.Scene {
         families: ['GameOver'],
         urls: ['style/font.css'],
       },
-      active: function () {
-        scene.addFont();
-      },
     });
 
     this.load.image('game_over', 'src/assets/images/backgrounds/game-over.png');
+
+    for (const button of this.buttons) {
+      for (const state of this.states) {
+        this.load.image(
+          `${button}_${state}_button`,
+          `src/assets/images/buttons/${button}_${state}.png`,
+        );
+      }
+    }
   }
 
   create() {
+    this.input.setDefaultCursor('default');
+
     this.time.delayedCall(
       1000,
       () => {
@@ -36,5 +50,17 @@ class GameOverScene extends Phaser.Scene {
 
     backgroundImg.displayWidth = WINDOW_WIDTH;
     backgroundImg.displayHeight = WINDOW_HEIGHT;
+
+    new Button(
+      this,
+      this.buttonX,
+      this.buttonY,
+      'play_normal_button',
+      'play_hover_button',
+      'play_click_button',
+      () => {
+        this.scene.start('GameScene');
+      },
+    );
   }
 }
