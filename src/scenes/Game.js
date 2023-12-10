@@ -47,9 +47,7 @@ class GameScene extends Phaser.Scene {
   }
 
   initializeUI() {
-    this.healthImg = this.add
-      .image(HEALTH_X, HEALTH_Y, 'health')
-      .setOrigin(0, 0);
+    this.healthImg = this.add.image(HEALTH_X, HEALTH_Y, 'health').setOrigin(0, 0);
 
     this.healthBarImg = this.add
       .image(HEALTH_BAR_X, HEALTH_BAR_Y, 'health_bar')
