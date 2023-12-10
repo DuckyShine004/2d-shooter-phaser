@@ -13,7 +13,7 @@ class GameOverScene extends BaseScene {
 
     const text = this.add.text(TITLE_X, TITLE_Y, 'Game Over', {
       fontFamily: 'GameOver',
-      fontSize: TITLE_SIZE,
+      fontSize: TITLE_FONT_SIZE,
     });
 
     text.setOrigin(0.5, 0.5);

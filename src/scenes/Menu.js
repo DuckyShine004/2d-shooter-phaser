@@ -13,7 +13,7 @@ class MenuScene extends BaseScene {
 
     const text = this.add.text(TITLE_X, TITLE_Y, 'Main Menu', {
       fontFamily: 'GameOver',
-      fontSize: TITLE_SIZE,
+      fontSize: TITLE_FONT_SIZE,
       fill: '#000000',
     });
 
