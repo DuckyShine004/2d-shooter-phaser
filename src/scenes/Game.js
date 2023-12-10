@@ -107,17 +107,6 @@ class GameScene extends Phaser.Scene {
    */
   preload() {
     Utility.getBackground(this);
-
-    this.load.image('red', 'https://labs.phaser.io/assets/particles/red.png');
-    this.load.image('crosshair', 'src/assets/images/ui/crosshair.png');
-    this.load.image('health', 'src/assets/images/ui/health.png');
-    this.load.image('health_bar', 'src/assets/images/ui/health-bar.png');
-    this.load.image('score', 'src/assets/images/ui/score.png');
-
-    this.load.audio('game_music', 'src/assets/sounds/music/game.mp3');
-    this.load.audio('shoot_sfx', 'src/assets/sounds/sfx/shoot.wav');
-    this.load.audio('hit_sfx', 'src/assets/sounds/sfx/hit.wav');
-    this.load.audio('explosion_sfx', 'src/assets/sounds/sfx/explosion.wav');
   }
 
   /**

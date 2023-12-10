@@ -3,24 +3,26 @@ class MenuScene extends Phaser.Scene {
   constructor() {
     super('MenuScene');
 
-    this.buttons = ['play'];
-    this.states = ['normal', 'hover', 'click'];
-
     this.buttonX = WINDOW_WIDTH / 2;
     this.buttonY = WINDOW_HEIGHT / 2;
   }
 
-  preload() {
+  loadImages() {
     this.load.image('main_menu', 'src/assets/images/backgrounds/main-menu.png');
+  }
 
-    for (const button of this.buttons) {
-      for (const state of this.states) {
-        this.load.image(
-          `${button}_${state}_button`,
-          `src/assets/images/buttons/${button}_${state}.png`,
-        );
-      }
+  loadButtons() {
+    for (const button_state of BUTTON_STATES) {
+      this.load.image(
+        `${button_state}_button`,
+        `src/assets/images/buttons/${button_state}.png`,
+      );
     }
+  }
+
+  preload() {
+    this.loadImages();
+    this.loadButtons();
   }
 
   create() {
@@ -33,9 +35,9 @@ class MenuScene extends Phaser.Scene {
       this,
       this.buttonX,
       this.buttonY,
-      'play_normal_button',
-      'play_hover_button',
-      'play_click_button',
+      'normal_button',
+      'hover_button',
+      'click_button',
       () => {
         this.scene.start('GameScene');
       },

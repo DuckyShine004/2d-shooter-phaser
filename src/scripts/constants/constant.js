@@ -19,6 +19,11 @@ const BAR_SCALE_Y = 1.25;
 
 const HEALTH_BAR_WIDTH = 132 * BAR_SCALE_X;
 
+const BUTTON_STATES = ['normal', 'hover', 'click'];
+
+const BUTTON_X = WINDOW_WIDTH / 2;
+const BUTTON_Y = WINDOW_HEIGHT / 2;
+
 const PLAYER_HEALTH = 3;
 const SCORE_INCREMENT = 10;
 const ENEMY_SPAWN_RATE_LIMIT = 500;

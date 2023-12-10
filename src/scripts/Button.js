@@ -22,5 +22,7 @@ class Button extends Phaser.GameObjects.Image {
       });
 
     scene.add.existing(this);
+
+    this.setDepth(1);
   }
 }
