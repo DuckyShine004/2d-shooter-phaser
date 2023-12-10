@@ -27,10 +27,18 @@ class GameOverScene extends Phaser.Scene {
         );
       }
     }
+
+    this.load.audio('game_over_music', 'src/assets/sounds/music/game-over.mp3');
   }
 
   create() {
     this.input.setDefaultCursor('default');
+
+    this.gameOverMusic = this.sound.add('game_over_music', {
+      loop: true,
+    });
+
+    this.gameOverMusic.play();
 
     this.time.delayedCall(
       1000,
@@ -60,6 +68,7 @@ class GameOverScene extends Phaser.Scene {
       'play_click_button',
       () => {
         this.scene.start('GameScene');
+        this.gameOverMusic.stop();
       },
     );
   }

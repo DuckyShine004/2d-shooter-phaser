@@ -7,9 +7,13 @@ class GameScene extends Phaser.Scene {
    */
   constructor() {
     super('GameScene');
+
+    this.elapsedTime = 0;
   }
 
   initializeGame() {
+    this.elapsedTime = 0;
+
     this.initializeInputs();
     this.initializeSounds();
     this.initializeUI();
@@ -41,9 +45,9 @@ class GameScene extends Phaser.Scene {
       loop: true,
     });
 
-    this.hitSfx = this.sound.add('hit_sfx');
-
     this.gameMusic.play();
+
+    this.sound.add('hit_sfx');
   }
 
   initializeUI() {
@@ -80,7 +84,7 @@ class GameScene extends Phaser.Scene {
   }
 
   handlePlayerEnemyCollision(player, enemy) {
-    this.hitSfx.play();
+    this.sound.play('hit_sfx');
     player.health--;
 
     if (!player.health) {
@@ -132,8 +136,10 @@ class GameScene extends Phaser.Scene {
    *@param {number} time - The time elapsed.
    * @return {void} Nothing is being returned.
    */
-  update(time) {
-    this.player.update(this.keys, this.cursors, this.mouse, time);
+  update(time, delta) {
+    this.elapsedTime += delta;
+
+    this.player.update(this.keys, this.cursors, this.mouse, this.elapsedTime);
 
     this.physics.add.overlap(
       this.player.bullets,
