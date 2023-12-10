@@ -11,7 +11,7 @@ class MenuScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('main_menu', 'src/assets/images/backgrounds/main_menu.png');
+    this.load.image('main_menu', 'src/assets/images/backgrounds/main-menu.png');
 
     for (const button of this.buttons) {
       for (const state of this.states) {
@@ -21,8 +21,6 @@ class MenuScene extends Phaser.Scene {
         );
       }
     }
-
-    this.load.audio('main_menu_music', 'src/assets/sounds/music/main_menu.mp3');
   }
 
   create() {
@@ -40,14 +38,7 @@ class MenuScene extends Phaser.Scene {
       'play_click_button',
       () => {
         this.scene.start('GameScene');
-        this.mainMenuMusic.stop();
       },
     );
-
-    this.mainMenuMusic = this.sound.add('main_menu_music', {
-      loop: true,
-    });
-
-    this.mainMenuMusic.play();
   }
 }
