@@ -17,7 +17,7 @@ class Player extends Entity {
 
     this.health = PLAYER_HEALTH;
 
-    this.mousePressed = false;
+    this.isMousePressed = false;
 
     this.score = 0;
     this.lastEnemySpawnTime = 0;
@@ -52,25 +52,25 @@ class Player extends Entity {
   update(keys, cursors, mouse) {
     this.shootBullet(mouse);
 
-    let vx = 0;
-    let vy = 0;
+    let dx = 0;
+    let dy = 0;
 
     if (keys.left.isDown || cursors.left.isDown) {
-      vx = -1;
+      dx = -1;
     } else if (keys.right.isDown || cursors.right.isDown) {
-      vx = 1;
+      dx = 1;
     }
 
     if (keys.up.isDown || cursors.up.isDown) {
-      vy = -1;
+      dy = -1;
     } else if (keys.down.isDown || cursors.down.isDown) {
-      vy = 1;
+      dy = 1;
     }
 
-    const normalization = Utility.getNormalization(vx, vy);
+    const normalization = Utility.getNormalization(dx, dy);
 
-    this.body.setVelocityX(this.speed * vx * normalization);
-    this.body.setVelocityY(this.speed * vy * normalization);
+    this.body.setVelocityX(this.speed * dx * normalization);
+    this.body.setVelocityY(this.speed * dy * normalization);
 
     this.updateArm(mouse);
   }
@@ -97,15 +97,15 @@ class Player extends Entity {
    * @return {void} Nothing is returned.
    */
   shootBullet(mouse) {
-    if (mouse.leftButtonDown() && !this.mousePressed) {
+    if (mouse.leftButtonDown() && !this.isMousePressed) {
       this.entityManager.addBullet(this.arm.x, this.arm.y, mouse);
 
-      this.mousePressed = true;
+      this.isMousePressed = true;
       this.scene.sound.play('shoot_sfx');
     }
 
-    if (mouse.leftButtonReleased() && this.mousePressed) {
-      this.mousePressed = false;
+    if (mouse.leftButtonReleased() && this.isMousePressed) {
+      this.isMousePressed = false;
     }
   }
 }
