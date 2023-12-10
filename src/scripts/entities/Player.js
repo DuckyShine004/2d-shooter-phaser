@@ -5,9 +5,11 @@ class Player extends Entity {
    *
    * @param {Object} scene - The game's current scene.
    * @param {number} x - The x coordinate of the player.
-   * @param {number} y - The x coordinate of the player.
+   * @param {number} y - The y coordinate of the player.
    * @param {number} radius - The radius of the player object.
    * @param {number} color - The color of the player.
+   * @param {Function} onPlayerDeath - A callback function for when the player dies.
+   * @param {Object} entityManager - The entity manager.
    * @return {void} Nothing is returned.
    */
   constructor(scene, x, y, radius, color, onPlayerDeath, entityManager) {
@@ -26,6 +28,13 @@ class Player extends Entity {
     this.arm.setStrokeStyle(2, BLACK);
   }
 
+  /**
+   * Handles the collision between the player and the enemy.
+   *
+   * @param {Object} player - The player in collision with the enemy.
+   * @param {Object} enemy - The enemy in collision with the player.
+   * @return {void} Nothing is returned.
+   */
   handleEnemyCollision(player, enemy) {
     this.scene.sound.play('hit_sfx');
     this.health--;
@@ -91,7 +100,7 @@ class Player extends Entity {
   }
 
   /**
-   * Update the bullets in the list of bullets.
+   * Handle bullet event. Checks whether a bullet can be shot or not.
    *
    * @param {Object} mouse - The mouse input.
    * @return {void} Nothing is returned.
