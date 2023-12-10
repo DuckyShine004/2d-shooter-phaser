@@ -3,7 +3,7 @@ class Enemy extends Phaser.GameObjects.Ellipse {
   constructor(scene, x, y, removeEnemy, radius, color) {
     super(scene, x, y, radius, radius, color);
 
-    this.speed = 300;
+    this.speed = ENEMY_SPEED_DIFFERENCE * Math.random() + ENEMY_LOWER_SPEED_LIMIT;
     this.radius = radius;
 
     this.removeEnemy = removeEnemy;

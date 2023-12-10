@@ -41,13 +41,13 @@ class GameScene extends Phaser.Scene {
       loop: true,
     });
 
+    this.hitSfx = this.sound.add('hit_sfx');
+
     this.gameMusic.play();
   }
 
   initializeUI() {
-    this.healthImg = this.add
-      .image(HEALTH_X, HEALTH_Y, 'health')
-      .setOrigin(0, 0);
+    this.healthImg = this.add.image(HEALTH_X, HEALTH_Y, 'health').setOrigin(0, 0);
 
     this.healthBarImg = this.add
       .image(HEALTH_BAR_X, HEALTH_BAR_Y, 'health_bar')
@@ -80,6 +80,7 @@ class GameScene extends Phaser.Scene {
   }
 
   handlePlayerEnemyCollision(player, enemy) {
+    this.hitSfx.play();
     player.health--;
 
     if (!player.health) {
@@ -110,6 +111,7 @@ class GameScene extends Phaser.Scene {
 
     this.load.audio('game_music', 'src/assets/sounds/music/game.mp3');
     this.load.audio('shoot_sfx', 'src/assets/sounds/sfx/shoot.wav');
+    this.load.audio('hit_sfx', 'src/assets/sounds/sfx/hit.wav');
     this.load.audio('explosion_sfx', 'src/assets/sounds/sfx/explosion.wav');
   }
 

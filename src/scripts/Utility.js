@@ -68,4 +68,10 @@ class Utility {
   static getNormalization(x, y) {
     return this.checkNonZeroComponents(x, y) ? 1 / this.getMagnitude(x, y) : 0;
   }
+
+  static getSpawnRate(t) {
+    const rate = ENEMY_INITIAL_SPAWN_RATE * Math.exp(ENEMY_SPAWN_RATE_COEFFICENT * t);
+
+    return Math.max(ENEMY_SPAWN_RATE_LIMIT, rate);
+  }
 }
