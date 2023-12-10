@@ -59,12 +59,12 @@ class GameScene extends Phaser.Scene {
     this.healthBarImg.setScale(BAR_SCALE_X, BAR_SCALE_Y);
     this.scoreImg.setScale(BAR_SCALE_X, BAR_SCALE_Y);
 
-    this.score = this.add.text(SCORE_TEXT_X, SCORE_TEXT_Y, '0', {
-      font: '32px "Press Start 2P"',
-      align: 'left',
-    });
-
-    this.score.setOrigin(1, 0);
+    this.score = this.add
+      .text(SCORE_TEXT_X, SCORE_TEXT_Y, '0', {
+        font: '32px "Press Start 2P"',
+        align: 'left',
+      })
+      .setOrigin(1, 0);
   }
 
   handleBulletEnemyCollision(bullet, enemy) {

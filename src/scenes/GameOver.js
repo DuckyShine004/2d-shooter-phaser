@@ -3,9 +3,7 @@ class GameOverScene extends Phaser.Scene {
     super('GameOverScene');
   }
 
-  loadFont() {
-    const scene = this;
-
+  preload() {
     WebFont.load({
       custom: {
         families: ['GameOver'],
@@ -15,19 +13,28 @@ class GameOverScene extends Phaser.Scene {
         scene.addFont();
       },
     });
+
+    this.load.image('game_over', 'src/assets/images/backgrounds/game-over.png');
   }
 
-  addFont() {
-    this.add.text(100, 100, 'Game Over', {
-      fontFamily: 'GameOver',
-      fontSize: '32px',
-      fill: '#ffffff',
-    });
-  }
+  create() {
+    this.time.delayedCall(
+      1000,
+      () => {
+        this.add
+          .text(WINDOW_WIDTH * 0.5, WINDOW_HEIGHT * 0.2, 'Game Over', {
+            fontFamily: 'GameOver',
+            fontSize: '60px',
+            fill: '#ffffff',
+          })
+          .setOrigin(0.5, 0.5);
+      },
+      this,
+    );
 
-  preload() {
-    this.loadFont();
-  }
+    const backgroundImg = this.add.image(0, 0, 'game_over').setOrigin(0, 0);
 
-  create() {}
+    backgroundImg.displayWidth = WINDOW_WIDTH;
+    backgroundImg.displayHeight = WINDOW_HEIGHT;
+  }
 }
