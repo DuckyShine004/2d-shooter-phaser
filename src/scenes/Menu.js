@@ -11,12 +11,12 @@ class MenuScene extends BaseScene {
   create() {
     this.initializeUI(this, 'default', 'main_menu');
 
-    this.add
-      .text(TITLE_X, TITLE_Y, 'Main Menu', {
-        fontFamily: 'GameOver',
-        fontSize: TITLE_SIZE,
-        fill: '#000000',
-      })
-      .setOrigin(0.5, 0.5);
+    const text = this.add.text(TITLE_X, TITLE_Y, 'Main Menu', {
+      fontFamily: 'GameOver',
+      fontSize: TITLE_SIZE,
+      fill: '#000000',
+    });
+
+    text.setOrigin(0.5, 0.5);
   }
 }

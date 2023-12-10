@@ -2,6 +2,9 @@
 const WINDOW_WIDTH = 1400;
 const WINDOW_HEIGHT = 1000;
 
+const CENTRE_X = WINDOW_WIDTH / 2;
+const CENTRE_Y = WINDOW_HEIGHT / 2;
+
 const HEALTH_X = 10;
 const HEALTH_Y = 10;
 
@@ -26,3 +29,5 @@ const TITLE_SIZE = '60px';
 
 const TITLE_X = WINDOW_WIDTH * 0.5;
 const TITLE_Y = WINDOW_HEIGHT * 0.2;
+
+const GRID_SIZE = 100;

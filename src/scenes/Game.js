@@ -17,12 +17,12 @@ class GameScene extends BaseScene {
   }
 
   initializeHealthBar() {
-    this.healthImg = this.add.image(HEALTH_X, HEALTH_Y, 'health').setOrigin(0, 0);
-    this.healthBarImg = this.add
-      .image(HEALTH_BAR_X, HEALTH_BAR_Y, 'health_bar')
-      .setOrigin(0, 0);
-
+    this.healthImg = this.add.image(HEALTH_X, HEALTH_Y, 'health');
+    this.healthImg.setOrigin(0, 0);
     this.healthImg.setScale(BAR_SCALE_X, BAR_SCALE_Y);
+
+    this.healthBarImg = this.add.image(HEALTH_BAR_X, HEALTH_BAR_Y, 'health_bar');
+    this.healthBarImg.setOrigin(0, 0);
     this.healthBarImg.setScale(BAR_SCALE_X, BAR_SCALE_Y);
   }
 
@@ -30,12 +30,12 @@ class GameScene extends BaseScene {
     this.scoreImg = this.add.image(SCORE_X, SCORE_Y, 'score').setOrigin(0, 0);
     this.scoreImg.setScale(BAR_SCALE_X, BAR_SCALE_Y);
 
-    this.score = this.add
-      .text(SCORE_TEXT_X, SCORE_TEXT_Y, '0', {
-        font: '32px "Press Start 2P"',
-        align: 'left',
-      })
-      .setOrigin(1, 0);
+    this.score = this.add.text(SCORE_TEXT_X, SCORE_TEXT_Y, '0', {
+      font: '32px "Press Start 2P"',
+      align: 'left',
+    });
+
+    this.score.setOrigin(1, 0);
   }
 
   initializeGUI() {
@@ -53,6 +53,18 @@ class GameScene extends BaseScene {
     super.preload();
   }
 
+  handleCollisions() {
+    this.physics.add.overlap(
+      this.entityManager.enemies,
+      this.entityManager.bullets,
+      (enemy, bullet) => enemy.handleBulletCollision(this, enemy, bullet),
+    );
+
+    this.physics.add.overlap(this.player, this.entityManager.enemies, (player, enemy) =>
+      player.handleEnemyCollision(player, enemy),
+    );
+  }
+
   /**
    * Create and render game objects to the scene.
    *
@@ -67,12 +79,13 @@ class GameScene extends BaseScene {
     this.initializeGUI();
 
     this.entityManager = new EntityManager(this);
+
     this.player = new Player(
       this,
-      400,
-      400,
-      60,
-      0x77c3ec,
+      CENTRE_X,
+      CENTRE_Y,
+      PLAYER_SIZE,
+      BLUE,
       this.onPlayerDeath.bind(this),
       this.entityManager,
     );
@@ -89,14 +102,6 @@ class GameScene extends BaseScene {
     this.entityManager.update(this.player, this.elapsedTime);
     this.player.update(this.keys, this.cursors, this.mouse);
 
-    this.physics.add.overlap(
-      this.entityManager.enemies,
-      this.entityManager.bullets,
-      (enemy, bullet) => enemy.handleBulletCollision(this, enemy, bullet),
-    );
-
-    this.physics.add.overlap(this.player, this.entityManager.enemies, (player, enemy) =>
-      player.handleEnemyCollision(player, enemy),
-    );
+    this.handleCollisions();
   }
 }

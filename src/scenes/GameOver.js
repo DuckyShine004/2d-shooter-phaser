@@ -11,12 +11,11 @@ class GameOverScene extends BaseScene {
     this.initializeMusic('game_over_music');
     this.initializeUI(this, 'default', 'game_over');
 
-    this.add
-      .text(TITLE_X, TITLE_Y, 'Game Over', {
-        fontFamily: 'GameOver',
-        fontSize: TITLE_SIZE,
-        fill: '#ffffff',
-      })
-      .setOrigin(0.5, 0.5);
+    const text = this.add.text(TITLE_X, TITLE_Y, 'Game Over', {
+      fontFamily: 'GameOver',
+      fontSize: TITLE_SIZE,
+    });
+
+    text.setOrigin(0.5, 0.5);
   }
 }
