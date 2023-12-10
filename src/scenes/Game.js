@@ -84,7 +84,7 @@ class GameScene extends Phaser.Scene {
     player.health--;
 
     if (!player.health) {
-      console.log('LOL NOOB');
+      this.scene.start('GameOverScene');
     }
 
     enemy.destroy();
