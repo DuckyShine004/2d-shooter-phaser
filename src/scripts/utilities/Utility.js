@@ -3,7 +3,7 @@ class Utility {
   /**
    * Creates a background for the game scene.
    *
-   * @param {*} scene - The current scene.
+   * @param {Object} scene - The current scene.
    * @return {void} Nothing is being returned.
    */
   static getBackground(scene) {
@@ -73,7 +73,7 @@ class Utility {
   /**
    * Get the next time when the enemy should spawn again.
    *
-   * @param {*} t - The total time elapsed.
+   * @param {number} t - The total time elapsed.
    * @return {number} The time when the next enemy should spawn.
    */
   static getSpawnRate(t) {
