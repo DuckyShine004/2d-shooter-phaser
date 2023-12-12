@@ -65,8 +65,8 @@ class EntityManager {
   /**
    * Add a bullet for the given bullet coordinates.
    *
-   * @param {*} x - The x coordinate of the bullet.
-   * @param {*} y - The y coordinate of the bullet.
+   * @param {number} x - The x coordinate of the bullet.
+   * @param {number} y - The y coordinate of the bullet.
    * @param {Object} mouse - the mouse object.
    * @return {void} Nothing is being returned.
    */
@@ -90,8 +90,8 @@ class EntityManager {
   /**
    * Updates the entity manager.
    *
-   * @param {*} player - The player object.
-   * @param {*} time - The total time elapsed.
+   * @param {Object} player - The player object.
+   * @param {number} time - The total time elapsed.
    * @return {void} Nothing is being returned.
    */
   update(player, time) {
